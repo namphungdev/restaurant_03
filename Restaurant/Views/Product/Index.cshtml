@@ -1,4 +1,4 @@
-﻿@using PagedList.Core.Mvc
+﻿@*@using PagedList.Core.Mvc
 @model PagedList.Core.IPagedList<Restaurant.Models.SanPham>
     @{
         int PageCurrent = ViewBag.CurrentPage;
@@ -7,12 +7,12 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
 
 
-    }
-@*@model IEnumerable<Restaurant.Models.SanPham>
+    }*@
+@model IEnumerable<Restaurant.Models.SanPham>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+}
 
 <main>
     <div class="hero_single inner_pages background-image" data-background="url(img/hero_menu.jpg)">
@@ -199,7 +199,7 @@
                                         </a>
                                         <div class="price_box">
                                             <span class="new_price">@item.Tien</span>
-                                            <span class="old_price">$18.00</span>
+                                            <span class="old_price">$18.0000</span>
                                         </div>
                                     </div>
                                 <!-- /grid_item -->

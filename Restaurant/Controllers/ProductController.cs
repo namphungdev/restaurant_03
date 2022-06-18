@@ -18,14 +18,14 @@ namespace Restaurant.Controllers
         {
             _context = context;
         }
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
             var listsanpham = _context.SanPhams.ToList();
             return View(listsanpham);
 
-        }*/
-        
-        public IActionResult Index(int? page)
+        }
+
+       /* public IActionResult Index(int? page)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Restaurant.Controllers
             }
 
 
-        }
+        }*/
         public IActionResult List(int MaLoaiSanPham, int page = 1)
         {
             try
