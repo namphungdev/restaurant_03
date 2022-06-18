@@ -14,18 +14,18 @@ namespace Restaurant.Controllers
 
         private readonly RestaurantContext _context;
 
-        public ProductController()
+        public ProductController( RestaurantContext context      )
         {
-            _context = new RestaurantContext();
+            _context = context;
         }
-        /* public IActionResult Index()
-         {
-             var sp = _context.SanPhams.ToList();
-             return View(sp);
+        /*public IActionResult Index()
+        {
+            var listsanpham = _context.SanPhams.ToList();
+            return View(listsanpham);
 
-         }*/
-
-        public IActionResult Index(int ? page)
+        }*/
+        
+        public IActionResult Index(int? page)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Restaurant.Controllers
             {
                 return RedirectToAction("Index", " Home");
             }
-           
+
 
         }
         public IActionResult List(int MaLoaiSanPham, int page = 1)

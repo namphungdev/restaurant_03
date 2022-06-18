@@ -13,8 +13,8 @@ namespace Restaurant.Models
         }
 
         public int MaSanPham { get; set; }
+        public string AnhSanPham { get; set; }
         public string TenSanPham { get; set; }
-        public byte[] AnhSanPham { get; set; }
         public string NguyenLieu { get; set; }
         public string ChiTiet { get; set; }
         public decimal? Tien { get; set; }

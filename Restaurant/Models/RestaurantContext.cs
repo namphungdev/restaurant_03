@@ -31,7 +31,7 @@ namespace Restaurant.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\MSSQLSERVER01;Initial Catalog=Restaurant;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=.\\MSSQLSERVER01;Database=Restaurant;Integrated Security=True");
             }
         }
 
@@ -152,7 +152,7 @@ namespace Restaurant.Models
 
                 entity.ToTable("SanPham");
 
-                entity.Property(e => e.AnhSanPham).HasColumnType("image");
+                entity.Property(e => e.AnhSanPham).HasMaxLength(50);
 
                 entity.Property(e => e.ChiTiet).HasMaxLength(30);
 
@@ -164,7 +164,7 @@ namespace Restaurant.Models
 
                 entity.Property(e => e.TenSanPham).HasMaxLength(30);
 
-                entity.Property(e => e.Tien).HasColumnType("money");
+                entity.Property(e => e.Tien).HasColumnType("decimal(18, 0)");
 
                 entity.HasOne(d => d.MaLoaiSanPhamNavigation)
                     .WithMany(p => p.SanPhams)
