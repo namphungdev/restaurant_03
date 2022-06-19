@@ -25,7 +25,6 @@ namespace Restaurant.Areas.Admin.Controllers
             return View(await _context.LoaiSanPhams.ToListAsync());
         }
 
-
         // GET: Admin/LoaiSanPhams/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -409,6 +409,16 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\img\SanPham\Ca\" />
+    <Folder Include="wwwroot\img\SanPham\Com\" />
+    <Folder Include="wwwroot\img\SanPham\Lau\" />
+    <Folder Include="wwwroot\img\SanPham\Goi\" />
+    <Folder Include="wwwroot\img\SanPham\Ga\" />
+    <Folder Include="wwwroot\img\SanPham\Heo\" />
+    <Folder Include="wwwroot\img\SanPham\Kem\" />
+    <Folder Include="wwwroot\img\SanPham\TraiCay\" />
+    <Folder Include="wwwroot\img\SanPham\Tom\" />
+    <Folder Include="wwwroot\img\SanPham\Sup\" />
   </ItemGroup>
 
 </Project>
