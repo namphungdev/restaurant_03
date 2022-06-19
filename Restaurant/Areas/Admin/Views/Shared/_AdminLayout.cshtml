@@ -270,35 +270,44 @@
                                 <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
+                        @*quản lý sản phẩm *@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="charts.html" aria-expanded="false">
-                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span>
+                               asp-area="Admin" asp-controller="SanPhams" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Quảng lý sản phẩm </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="widgets.html" aria-expanded="false">
-                                <i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span>
+                               asp-area="Admin" asp-controller="LoaiSanPhams" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Chi tiết Loại Sản Phẩm</span>
+                            </a>
+                        </li>
+                        @* quản lý khách hàng*@
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-area="Admin" asp-controller="KhachHangs" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Quản lý Khách Hàng  </span>
+                            </a>
+                        </li>
+                        @*quản lý đơn hàng*@
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                               asp-area="Admin" asp-controller="    " asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-border-inside"></i><span class="hide-menu">Quản lý đơn hàng</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="tables.html" aria-expanded="false">
-                                <i class="mdi mdi-border-inside"></i><span class="hide-menu">Tables</span>
+                               asp-area="Admin" asp-controller="ThucDons" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-blur-linear"></i><span class="hide-menu">Quản lý Thực Đơn</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="grid.html" aria-expanded="false">
-                                <i class="mdi mdi-blur-linear"></i><span class="hide-menu">Full Width</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark"
-                               href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-receipt"></i><span class="hide-menu">Forms </span>
-                            </a>
+                            @*<a class="sidebar-link has-arrow waves-effect waves-dark"
+               href="javascript:void(0)" aria-expanded="false">
+                <i class="mdi mdi-receipt"></i><span class="hide-menu">Quản lý Thực Đơn </span>
+            </a>*@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="form-basic.html" class="sidebar-link">
@@ -316,10 +325,11 @@
                                 </li>
                             </ul>
                         </li>
+                        @*Chi tiết Hóa Đơn*@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="pages-buttons.html" aria-expanded="false">
-                                <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Buttons</span>
+                               asp-area="Admin" asp-controller="ChiTietHoaDons" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Chi tiết Thực Đơn</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -347,8 +357,14 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               href="pages-elements.html" aria-expanded="false">
-                                <i class="mdi mdi-pencil"></i><span class="hide-menu">Elements</span>
+                              asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-pencil"></i><span class="hide-menu">Chức vụ</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                              asp-area="Admin" asp-controller="Gopies" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-pencil"></i><span class="hide-menu">Góp ý</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -394,21 +410,22 @@
                                 </li>
                             </ul>
                         </li>
+                        @* Quản lý tài khoản*@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
-                               href="javascript:void(0)" aria-expanded="false">
-                                <i class="mdi mdi-account-key"></i><span class="hide-menu">Authentication </span>
+                              asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-account-key"></i><span class="hide-menu">Quản lý tài khoản(chức vụ) </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="authentication-login.html" class="sidebar-link">
-                                        <i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Login </span>
+                                        <i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Đăng nhập  </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="authentication-register.html" class="sidebar-link">
                                         <i class="mdi mdi-all-inclusive"></i><span class="hide-menu">
-                                            Register
+                                            Đăng kí
                                         </span>
                                     </a>
                                 </li>
