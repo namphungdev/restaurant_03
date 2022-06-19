@@ -1,13 +1,14 @@
 ﻿@*@using PagedList.Core.Mvc
-@model PagedList.Core.IPagedList<Restaurant.Models.SanPham>
-    @{
-        int PageCurrent = ViewBag.CurrentPage;
-        int PageNext = PageCurrent + 1;
-        ViewData["Title"] = "Sản phẩm - " + ViewBag.CurrentPage;
-        Layout = "~/Views/Shared/_Layout.cshtml";
+    @model PagedList.Core.IPagedList<Restaurant.Models.SanPham>
+        @{
+            int PageCurrent = ViewBag.CurrentPage;
+            int PageNext = PageCurrent + 1;
+            ViewData["Title"] = "Sản phẩm - " + ViewBag.CurrentPage;
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        @model IEnumerable<Restaurant.Models.SanPham>
 
-
-    }*@
+        }*@
+@using PagedList.Core.Mvc
 @model IEnumerable<Restaurant.Models.SanPham>
 @{
     ViewData["Title"] = "Index";
@@ -178,34 +179,37 @@
             <!-- /col -->
             <div class="col-lg-9">
                 <div class="row small-gutters">
-                   @* @if (Model != null && Model.Count() > 0)
-                    { }*@
-                        @foreach (var item in Model)
-                        {
-                            string url = $"";
-                            <div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-                                
-                                <div class="grid_item">
-                                        <figure>
-                                            <span class="ribbon off">-30%</span>
-                                            <a href="@url">
-                                                <img class="img-fluid lazy" src="~/img/menu_items/@item.AnhSanPham"  alt="">
-                                                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-                                            </a>
-                                        </figure>
-                                        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-                                        <a href="@url">
-                                            <h3>@item.TenSanPham</h3>
-                                        </a>
-                                        <div class="price_box">
-                                            <span class="new_price">@item.Tien</span>
-                                            <span class="old_price">$18.0000</span>
-                                        </div>
-                                    </div>
-                                <!-- /grid_item -->
+                    @* @if (Model != null && Model.Count() > 0)
+                        { }*@
+                    @foreach (var item in Model)
+                    {
+                        string url = $"";
+                        <div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
+
+                            <div class="grid_item">
+                                <figure>
+                                    <span class="ribbon off">-@item.GiamGia%</span>
+                                    <a href="Product/Details/@item.MaSanPham">
+                                        <img class="img-fluid lazy" src="~/img/menu_items/@item.AnhSanPham" alt="">
+                                        <div class="add_cart"><span class="btn_1">Thêm vào giỏ hàng</span></div>
+                                    </a>
+                                </figure>
+                                <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
+                                <a href="@url">
+                                    <h3>@item.TenSanPham</h3>
+                                </a>
+                                <div class="price_box">
+                                    <span class="new_price">@String.Format("{0:n0}", item.Tien - (item.Tien * item.GiamGia / 100)) ₫ </span>
+                                    <span class="old_price">
+                                        @String.Format("{0:n0}", item.Tien)
+                                        ₫
+                                    </span>
+                                </div>
                             </div>
-                        }
-                   
+                            <!-- /grid_item -->
+                        </div>
+                    }
+
 
 
                     <!-- /col -->
@@ -351,6 +355,9 @@
                 </div>
                 <!-- /row -->
                 <!-- /row_item -->
+                @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+                @* @Html.PagedListPager((IPagedList)ViewBag.SanPham, page => Url.Action("Index", "Product", new { page = page })))*@
+
                 <div class="pagination_fg add_bottom_15" data-cue="slideInUp">
                     <a href="#">&laquo;</a>
                     <a href="#" class="active">1</a>

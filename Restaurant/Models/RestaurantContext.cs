@@ -21,6 +21,12 @@ namespace Restaurant.Models
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<GopY> Gopies { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
+
+        internal dynamic ToList()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }

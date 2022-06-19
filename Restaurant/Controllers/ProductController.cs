@@ -1,28 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PagedList.Core;
 using Restaurant.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PagedList;
+using X.PagedList.Mvc.Core;
 
 namespace Restaurant.Controllers
 {
     public class ProductController : Controller
     {
 
+       
         private readonly RestaurantContext _context;
 
-        public ProductController( RestaurantContext context      )
+        public ProductController( RestaurantContext context )
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var listsanpham = _context.SanPhams.ToList();
-            return View(listsanpham);
+           
+            var restaurantContext = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
 
+            return View(await restaurantContext.ToListAsync());
+        }
+        /* public async Task<IActionResult> Index()
+         {
+             var restaurantContext = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
+
+             return View(await restaurantContext.ToListAsync());
+         }*/
+
+        // GET: SanPhams/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sanPham = await _context.SanPhams
+                .Include(s => s.MaLoaiSanPhamNavigation)
+                .Include(s => s.MaThucDonNavigation)
+                .FirstOrDefaultAsync(m => m.MaSanPham == id);
+            if (sanPham == null)
+            {
+                return NotFound();
+            }
+
+            return View(sanPham);
         }
 
        /* public IActionResult Index(int? page)
@@ -44,7 +73,7 @@ namespace Restaurant.Controllers
 
 
         }*/
-        public IActionResult List(int MaLoaiSanPham, int page = 1)
+        /*public IActionResult List(int MaLoaiSanPham, int page = 1)
         {
             try
             {
@@ -63,17 +92,17 @@ namespace Restaurant.Controllers
             }
             
 
-        }
+        }*/
         //public IActionResult Details()
         //{
         //    return View();
         //}
 
-        public IActionResult Details(int id)
-        {
-            var product = _context.SanPhams.FirstOrDefault(p => p.MaSanPham == id);
+        /* public IActionResult Details(int id)
+         {
+             var product = _context.SanPhams.FirstOrDefault(p => p.MaSanPham == id);
 
-            return View(product);
-        }
+             return View(product);
+         }*/
     }
 }
