@@ -20,19 +20,36 @@ namespace Restaurant.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int id, int page = 0)
         {
-           
-            var restaurantContext = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
+            var id2 = id > 0 ? id : -1;
+            var sanpham = _context.SanPhams.ToList().Skip((page - 1) * 2).Take(2);
+            var lsp = _context.LoaiSanPhams.ToList();
 
-            return View(await restaurantContext.ToListAsync());
+            if (id2 != -1)
+            {
+                sanpham = _context.SanPhams.Where(m => m.MaLoaiSanPham == id2).ToList();
+               
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.ToLower();
+                sanpham = _context.SanPhams.Where(b => b.TenSanPham.ToLower().Contains(searchString)).ToList();
+            }
+
+            // sanpham = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
+            ViewBag.Count = 0;
+            var n = (float)(_context.SanPhams.ToList().Count() / 2 + 1);
+            //ViewBag.PageSize = Math.Round((float)n);
+            ViewBag.PageSize = n;
+            ViewBag.Page = page;        
+            ViewBag.DanhMuc = lsp;
+            return View(sanpham);
+
+            //return View(await restaurantContext.ToListAsync());
         }
-        /* public async Task<IActionResult> Index()
-         {
-             var restaurantContext = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
-
-             return View(await restaurantContext.ToListAsync());
-         }*/
+       
 
         // GET: SanPhams/Details/5
         public async Task<IActionResult> Details(int? id)
