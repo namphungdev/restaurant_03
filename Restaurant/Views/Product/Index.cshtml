@@ -71,14 +71,20 @@
                         <h4><a href="#filter_1" data-bs-toggle="collapse" class="opened">Danh mục</a></h4>
                         <div class="collapse show" id="filter_1">
                             <ul>
+                                <li>
+                                <i class="fa-solid fa-angle-right"></i>
+                                   <a href="/Product">Tất cả sản phẩm</a>
+                                <span class="checkmark"></span>
+                                </li>
                                 @foreach (var item in ViewBag.DanhMuc)
                                 {
-                                    <li>  <i class="fa-solid fa-angle-right"></i>                                  
+                                    <li>
+                                        <i class="fa-solid fa-angle-right"></i>
                                         @Html.ActionLink((string)item.TenLoaiSanPham, "index", "product", new { id = item.MaLoaiSanPham })
                                         <span class="checkmark"></span>
-                                     </li>
+                                    </li>
                                 }
-                                
+
 
                             </ul>
                         </div>
@@ -175,7 +181,7 @@
                                 <figure>
                                     <span class="ribbon off">-@item.GiamGia%</span>
                                     <a href="Product/Details/@item.MaSanPham">
-                                        <img class="img-fluid lazy" src="~/img/menu_items/@item.AnhSanPham" alt="">
+                                        <img class="img-fluid lazy" src="~/img/SanPham/@item.AnhSanPham" alt="">
                                         <div class="add_cart"><span class="btn_1">Thêm vào giỏ hàng</span></div>
                                     </a>
                                 </figure>

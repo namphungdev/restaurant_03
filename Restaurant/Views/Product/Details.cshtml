@@ -27,10 +27,10 @@
         <div class="row">
             <div class="col-lg-6 magnific-gallery">
                 <p>
-                    <a href="~/img/menu_items/@Model.AnhSanPham" title="@Model.TenSanPham" data-effect="mfp-zoom-in"><img src="~/img/menu_items/@Model.AnhSanPham" alt="" class="img-fluid"></a>
+                    <a href="~/img/SanPham/@Model.AnhSanPham" title="@Model.TenSanPham" data-effect="mfp-zoom-in"><img src="~/img/SanPham/@Model.AnhSanPham" alt="" class="img-fluid"></a>
                 </p>
                 <p>
-                    <a href="~/img/menu_items/@Model.AnhSanPham" title="@Model.TenSanPham" data-effect="mfp-zoom-in"><img src="~/img/menu_items/@Model.AnhSanPham" alt="" class="img-fluid lazy"></a>
+                    <a href="~/img/SanPham/@Model.AnhSanPham" title="@Model.TenSanPham" data-effect="mfp-zoom-in"><img src="~/img/SanPham/@Model.AnhSanPham" alt="" class="img-fluid lazy"></a>
                 </p>
             </div>
             <div class="col-lg-6" id="sidebar_fixed">
@@ -68,7 +68,7 @@
                             
                             <div class="price_main"><span class="new_price">
                             @String.Format("{0:n0}", Model.Tien - (Model.Tien * Model.GiamGia / 100)) ₫
-</span><span class="percentage">-@Model.GiamGia%</span> <span class="old_price">@String.Format("{0:n0}", Model.Tien) ₫ </span></div>
+</span><span class="percentage">-@Model.GiamGia%</span> <span class="old_price">@String.Format("{0:n0}", @Model.Tien) ₫ </span></div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="btn_add_to_cart"><a href="#0" class="btn_1">Thêm vào giỏ hàng</a></div>

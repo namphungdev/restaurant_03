@@ -23,12 +23,13 @@ namespace Restaurant.Controllers
         public async Task<IActionResult> Index(string searchString, int id, int page = 0)
         {
             var id2 = id > 0 ? id : -1;
-            var sanpham = _context.SanPhams.ToList().Skip((page - 1) * 2).Take(2);
+            //var sanpham =_context.SanPhams.OrderBy(x=> Guid.NewGuid()).Take(_context.SanPhams.Count()).ToList().Skip((page - 1) * 8).Take(8
+            var sanpham =_context.SanPhams.OrderBy(x=> Guid.NewGuid()).Take(_context.SanPhams.Count()).ToList().Skip((page - 1) * 8).Take(8);
             var lsp = _context.LoaiSanPhams.ToList();
 
             if (id2 != -1)
             {
-                sanpham = _context.SanPhams.Where(m => m.MaLoaiSanPham == id2).ToList();
+                sanpham = _context.SanPhams.Where(m => m.MaLoaiSanPham == id2).ToList().Skip((page - 1) * 8).Take(8);
                
             }
 
@@ -40,7 +41,7 @@ namespace Restaurant.Controllers
 
             // sanpham = _context.SanPhams.Include(s => s.MaLoaiSanPhamNavigation).Include(s => s.MaThucDonNavigation);
             ViewBag.Count = 0;
-            var n = (float)(_context.SanPhams.ToList().Count() / 2 + 1);
+            var n = (float)(_context.SanPhams.ToList().Count() / 8 + 1);
             //ViewBag.PageSize = Math.Round((float)n);
             ViewBag.PageSize = n;
             ViewBag.Page = page;        
