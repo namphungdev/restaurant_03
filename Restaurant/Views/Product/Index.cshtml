@@ -1,15 +1,4 @@
-﻿@*@using PagedList.Core.Mvc
-    @model PagedList.Core.IPagedList<Restaurant.Models.SanPham>
-        @{
-            int PageCurrent = ViewBag.CurrentPage;
-            int PageNext = PageCurrent + 1;
-            ViewData["Title"] = "Sản phẩm - " + ViewBag.CurrentPage;
-            Layout = "~/Views/Shared/_Layout.cshtml";
-        @model IEnumerable<Restaurant.Models.SanPham>
-
-        }*@
-@using PagedList.Core.Mvc
-@model IEnumerable<Restaurant.Models.SanPham>
+﻿@model IEnumerable<Restaurant.Models.SanPham>
 
 @{
     ViewData["Title"] = "Index";
@@ -90,82 +79,6 @@
                         </div>
                         <!-- /filter_type -->
                     </div>
-                    <!-- /filter_type -->
-                    <!--<div class="filter_type version_2">
-                        <h4><a href="#filter_2" data-bs-toggle="collapse" class="opened">Rating</a></h4>
-                        <div class="collapse show" id="filter_2">
-                            <ul>
-                                <li>
-                                    <label class="container_check">
-                                        Superb 9+ <small>06</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        Very Good 8+ <small>12</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        Good 7+ <small>17</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        Pleasant 6+ <small>43</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>-->
-                    <!-- /filter_type -->
-                    <!--<div class="filter_type version_2">
-                        <h4><a href="#filter_4" data-bs-toggle="collapse" class="closed">Price</a></h4>
-                        <div class="collapse" id="filter_4">
-                            <ul>
-                                <li>
-                                    <label class="container_check">
-                                        $0 — $50<small>11</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        $50 — $100<small>08</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        $100 — $150<small>05</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="container_check">
-                                        $150 — $200<small>18</small>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>-->
-                    <!-- /filter_type -->
-                    <div class="buttons">
-                        <a href="#0" class="btn_1">Filter</a> <a href="#0" class="btn_1 gray">Reset</a>
-                    </div>
                 </div>
             </aside>
             <!-- /col -->
@@ -180,9 +93,14 @@
                             <div class="grid_item">
                                 <figure>
                                     <span class="ribbon off">-@item.GiamGia%</span>
-                                    <a href="Product/Details/@item.MaSanPham">
+                                    <a href="/Product/Details/@item.MaSanPham">
                                         <img class="img-fluid lazy" src="~/img/SanPham/@item.AnhSanPham" alt="">
+
+                                    </a>
+                                    <a  asp-controller="Cart" asp-action="Buy" asp-route-id="@item.MaSanPham">
                                         <div class="add_cart"><span class="btn_1">Thêm vào giỏ hàng</span></div>
+
+
                                     </a>
                                 </figure>
                                 <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
@@ -202,160 +120,8 @@
                     else
                     {
                     <center><h2>Không có sản phẩm</h2></center>
-                    }
-
-                    
-
-
-
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <span class="ribbon off">-30%</span>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/2.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Avocado & Mango Salsa</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$10.00</span>
-            <span class="old_price">$12.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <span class="ribbon off">-30%</span>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/3.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Braised Pork Chops</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$14.00</span>
-            <span class="old_price">$18.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <span class="ribbon off">-30%</span>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/4.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Baked Potato Skins</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$10.00</span>
-            <span class="old_price">$13.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/5.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Prime Rib</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$18.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/6.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Chicken with Garlic</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$20.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/7.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Terrific Turkey Chili</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$22.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                    <!--<div class="col-6 col-md-4 col-xl-3" data-cue="slideInUp">
-    <div class="grid_item">
-        <figure>
-            <a href="shop-single.html">
-                <img class="img-fluid lazy" src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/8.jpg" alt="">
-                <div class="add_cart"><span class="btn_1">Add to cart</span></div>
-            </a>
-        </figure>
-        <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
-        <a href="shop-single.html">
-            <h3>Summer Berry</h3>
-        </a>
-        <div class="price_box">
-            <span class="new_price">$18.00</span>
-        </div>
-    </div>-->
-                    <!-- /grid_item -->
-                    <!--</div>-->
-                    <!-- /col -->
-                </div>
-                <!-- /row -->
-                <!-- /row_item -->
-                @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
-                @* @Html.PagedListPager((IPagedList)ViewBag.SanPham, page => Url.Action("Index", "Product", new { page = page })))*@
-
-
-
+                    }               
+                </div>             
                 <div class="pagination_fg add_bottom_15" data-cue="slideInUp">
                     <a href="#">&laquo;</a>
                     @for (var p = 1; p <= ViewBag.PageSize; p++)

@@ -21,12 +21,6 @@ namespace Restaurant.Models
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<GopY> Gopies { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
-
-        internal dynamic ToList()
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
@@ -104,7 +98,13 @@ namespace Restaurant.Models
 
                 entity.Property(e => e.NgayLap).HasColumnType("datetime");
 
-                entity.Property(e => e.TongTien).HasColumnType("money");
+                entity.Property(e => e.Sdt)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("SDT");
+
+                entity.Property(e => e.TongTien).HasColumnType("decimal(18, 0)");
 
                 entity.HasOne(d => d.MaKhachHangNavigation)
                     .WithMany(p => p.HoaDons)
@@ -131,7 +131,11 @@ namespace Restaurant.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Sdt).HasColumnName("SDT");
+                entity.Property(e => e.Sdt)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("SDT");
 
                 entity.Property(e => e.TenKhachHang).HasMaxLength(30);
 

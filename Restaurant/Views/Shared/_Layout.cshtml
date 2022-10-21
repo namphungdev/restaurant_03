@@ -32,6 +32,12 @@
     <link href="~/css/blog.css" rel="stylesheet">
     <link href="~/css/shop.css" rel="stylesheet" />
     <link href="~/css/order-food.css" rel="stylesheet">
+   
+    @using Restaurant.Helpers;
+    @using Restaurant.Models;
+    @using Microsoft.AspNetCore.Http;
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessorr;
+
 
 </head>
 
@@ -45,41 +51,53 @@
         <div class="layer"></div>
         <div class="container-fluid">
             <div id="logo">
-                <a href="index.html">
+                <a asp-controller="Home" asp-action="Index">
                     <img src="~/img/logo.svg" width="140" height="35" alt="" class="logo_normal">
                     <img src="~/img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
                 </a>
             </div>
             <ul id="top_menu">
-                <li><a href="#0" class="search-overlay-menu-btn"></a></li>
+
+                @if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContextAccessorr.HttpContext.Session, "login") != null)
+                {
+                     
+                    <li style="line-height:2;"><a asp-controller="Profile" asp-action="Index" style="font-size: 15px; color: black"> Tài khoản</a></li>
+                    <li style="line-height:2;"><a asp-controller="KhachHangs" asp-action="Logout" style="font-size: 15px; color: black">  &ensp; |  &ensp; Đăng xuất</a></li>
+                }
+                else
+                {
+                    <li style="line-height:2;"><a asp-controller="KhachHangs" asp-action="Index" style="font-size: 15px; color: black">Đăng nhập</a></li>
+                }
+
+
+                <!--<li>
+    <div class="dropdown dropdown-cart">
+        <a href="shop-cart.html" class="cart_bt"><strong>2</strong></a>
+        <div class="dropdown-menu">
+            <ul>
                 <li>
-                    <div class="dropdown dropdown-cart">
-                        <a href="shop-cart.html" class="cart_bt"><strong>2</strong></a>
-                        <div class="dropdown-menu">
-                            <ul>
-                                <li>
-                                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_1.jpg" alt="" width="50" height="50" class="lazy"></figure>
-                                    <strong><span>1x Pizza Napoli</span>$12.00</strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
-                                <li>
-                                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_2.jpg" alt="" width="50" height="50" class="lazy"></figure>
-                                    <strong><span>1x Hamburgher Maxi</span>$10.00</strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
-                                <li>
-                                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_3.jpg" alt="" width="50" height="50" class="lazy"></figure>
-                                    <strong><span>1x Red Wine Bottle</span>$20.00</strong>
-                                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
-                                </li>
-                            </ul>
-                            <div class="total_drop">
-                                <div class="clearfix add_bottom_15"><strong>Total</strong><span>$32.00</span></div>
-                                <a asp-controller="Cart" asp-action="Index" class="btn_1 outline">View Cart</a><a href="shop-checkout.html" class="btn_1">Checkout</a>
-                            </div>
-                        </div>
-                        <!-- /dropdown-cart-->
+                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_1.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                    <strong><span>1x Pizza Napoli</span>$12.00</strong>
+                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
                 </li>
+                <li>
+                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_2.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                    <strong><span>1x Hamburgher Maxi</span>$10.00</strong>
+                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
+                </li>
+                <li>
+                    <figure><img src="img/item_placeholder_square_small.jpg" data-src="img/item_square_small_3.jpg" alt="" width="50" height="50" class="lazy"></figure>
+                    <strong><span>1x Red Wine Bottle</span>$20.00</strong>
+                    <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
+                </li>
+            </ul>
+            <div class="total_drop">
+                <div class="clearfix add_bottom_15"><strong>Total</strong><span>$32.00</span></div>
+                <a asp-controller="Cart" asp-action="Index" class="btn_1 outline">View Cart</a><a href="shop-checkout.html" class="btn_1">Checkout</a>
+            </div>
+        </div>-->
+                <!-- /dropdown-cart-->
+                <!--</li>-->
             </ul>
             <!-- /top_menu -->
             <a href="#0" class="open_close">
@@ -94,7 +112,7 @@
                 </div>
                 <ul>
                     <li class="submenu">
-                        <a  asp-controller="Home" asp-action="Index" class="show-submenu">Home</a>                        
+                        <a asp-controller="Home" asp-action="Index" class="show-submenu">Home</a>
                     </li>
                     <li class="submenu">
                         <a href="#0" class="show-submenu">Menu</a>
@@ -108,7 +126,7 @@
                             <li><a href="confirm.html">Confirm</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
+                   @* <li class="submenu">
                         <a href="#0" class="show-submenu">Other Pages</a>
                         <ul>
                             <li><a href="about.html">About</a></li>
@@ -124,13 +142,21 @@
                             <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
                             <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
                         </ul>
-                    </li>
+                    </li>*@
                     <li class="submenu">
                         <a asp-controller="Product" asp-action="Index" class="show-submenu">Shop</a>
 
                     </li>
                     <li class="submenu">
                         <a asp-controller="Blog" asp-action="Index" class="show-submenu">Blog</a>
+
+                    </li>
+                    <li class="submenu">
+                        <a class="cart-head visible-xs show-submenu" asp-controller="cart" asp-action="index" style="position:relative;">
+                            <img style="width: 30%;" src="https://theme.hstatic.net/1000319111/1000411564/14/cart-icon.png?v=1032" alt="" title="" />
+                            <span style="position:relative; display: inline-block" class="hd-cart-count"></span>
+                        </a>
+
 
                     </li>
 

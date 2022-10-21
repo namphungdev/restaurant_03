@@ -18,6 +18,9 @@ namespace Restaurant.Models
         public decimal? TongTien { get; set; }
         public int? SoLuong { get; set; }
         public string DiaChi { get; set; }
+        public string Sdt { get; set; }
+        public int? ThanhToan { get; set; }
+        public int? VanChuyen { get; set; }
 
         public virtual KhachHang MaKhachHangNavigation { get; set; }
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }

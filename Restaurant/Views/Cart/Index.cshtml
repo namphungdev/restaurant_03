@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Restaurant.Models.GioHang>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,6 @@
     <link href="~/css/shop.css" rel="stylesheet" />
     <link href="~/css/custom.css" rel="stylesheet" />
     <link href="~/css/wizard.css" rel="stylesheet" />
-   
 }
 
 
@@ -28,104 +27,77 @@
         <div class="frame gray"></div>
     </div>
     <!-- /hero_single -->
-
     <div class="bg_gray">
         <div class="container margin_60_40">
             <table class="table table-striped cart-list">
                 <thead>
                     <tr>
                         <th>
-                            Product
+                            Hình ảnh   &ensp; | &ensp;  Tên sản phẩm
                         </th>
                         <th>
-                            Price
+                            ĐƠn giá
                         </th>
                         <th>
-                            Quantity
+                            Số lượng
                         </th>
                         <th>
-                            Subtotal
+                            Tổng
                         </th>
+                        </th>
+
                         <th>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div class="thumb_cart">
-                                <img src="~/img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/1.jpg" class="lazy" alt="Image">
-                            </div>
-                            <span class="item_cart">1x Enchiladas</span>
-                        </td>
-                        <td>
-                            <strong>$11.00</strong>
-                        </td>
-                        <td>
-                            <div class="numbers-row">
-                                <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
-                                <div class="inc button_inc">+</div>
-                                <div class="dec button_inc">-</div>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>$11.00</strong>
-                        </td>
-                        <td class="options">
-                            <a href="#"><i class="ti-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="thumb_cart">
-                                <img src="~/img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/2.jpg" class="lazy" alt="Image">
-                            </div>
-                            <span class="item_cart">2x Burrito</span>
-                        </td>
-                        <td>
-                            <strong>$15.00</strong>
-                        </td>
-                        <td>
-                            <div class="numbers-row">
-                                <input type="text" value="1" id="quantity_2" class="qty2" name="quantity_2">
-                                <div class="inc button_inc">+</div>
-                                <div class="dec button_inc">-</div>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>$15.00</strong>
-                        </td>
-                        <td class="options">
-                            <a href="#"><i class="ti-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="thumb_cart">
-                                <img src="~/img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/3.jpg" class="lazy" alt="Image">
-                            </div>
-                            <span class="item_cart">1x Chicken</span>
-                        </td>
-                        <td>
-                            <strong>$9.00</strong>
-                        </td>
-                        <td>
-                            <div class="numbers-row">
-                                <input type="text" value="1" id="quantity_3" class="qty2" name="quantity_3">
-                                <div class="inc button_inc">+</div>
-                                <div class="dec button_inc">-</div>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>$9.00</strong>
-                        </td>
-                        <td class="options">
-                            <a href="#"><i class="ti-trash"></i></a>
-                        </td>
-                    </tr>
+                    @if (Model.Count() == 0)
+                    {
+                        <center><h2>Giỏ hàng của bạn đang trống</h2></center>
+                        <center><a asp-controller="Product" asp-action="Index" style="font-size:25px">Tiếp tục mua hàng</a></center>
+                    }
+                    else
+                    {
+                        int total = 0;
+                        foreach (var item in Model)
+                        {
+
+                            var thanhtien = (item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) * item.SoLuong;
+                            total += (int)thanhtien;
+                            <tr>
+
+                                <td style="">
+                                    <div class="thumb_cart">
+                                        <img src="~/img/SanPham/@item.SanPham.AnhSanPham" class="lazy" alt="Image">
+                                    </div>
+                                    <span class="item_cart">@item.SanPham.TenSanPham</span>
+                                </td>
+                                <td>
+                                    <strong>@String.Format("{0:n0}", item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) ₫ </strong>
+                                </td>
+                                <td>
+                                    <div class="numbers-row">
+                                        <input type="text" value="@item.SoLuong" @*id="@($"quantity-{item.SanPham.MaSanPham}")"*@ min="1" class="qty2" name="quantity_1">
+                                        <div class="inc button_inc data-productid">+</div>
+                                        <div class="dec button_inc data-productid">-</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>@String.Format("{0:n0}", (item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) * item.SoLuong) ₫</strong>
+                                </td>
+                                <td>
+                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.SanPham.MaSanPham"><i class="fa-solid fa-xmark"></i></a>
+                                </td>
+                            </tr>
+
+
+                        }
+
+
+                    }
                 </tbody>
             </table>
-            <div class="row add_top_30 flex-sm-row-reverse cart_actions">
+            <!--<div class="row add_top_30 flex-sm-row-reverse cart_actions">
                 <div class="col-sm-4 text-end">
                     <button type="button" class="btn_1 outline">Update Cart</button>
                 </div>
@@ -136,33 +108,75 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!-- /cart_actions -->
         </div>
         <!-- /container -->
     </div>
+    @if (Model.Count() == 0)
+    {
 
-    <div class="box_cart">
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <ul>
-                        <li>
-                            <span>Subtotal</span> $35.00
-                        </li>
-                        <li>
-                            <span>Delivery fee</span> $7.00
-                        </li>
-                        <li>
-                            <span>Total</span> $42.00
-                        </li>
-                    </ul>
-                    <a asp-controller="Cart" asp-action="CheckOut" class="btn_1 full-width cart">Thanh toán</a>
+    }
+    else
+    {
+        int total = 0;
+
+        <div class="box_cart">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <ul>
+                            <li>
+                                <span>Tổng tiền</span>  @foreach (var item in Model)
+                                {
+
+                                    var thanhtien = (item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) * item.SoLuong;
+                                    total += (int)thanhtien;
+                                }
+                                @(String.Format("{0:n0}", total)) ₫
+
+                            </li>
+                            <li>
+                                <span>Giao hàng</span> @(String.Format("{0:n0}", 35000)) ₫
+                            </li>
+                            <li>
+                                <span>Tổng tiền</span> @(String.Format("{0:n0}", total + 35000)) ₫
+                            </li>
+                        </ul>
+                        <a asp-controller="Cart" asp-action="CheckOut" class="btn_1 full-width cart">Thanh toán</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /box_cart -->
+        <!-- /box_cart -->
+    }
+
 
 </main>
 <!-- /main -->
+
+
+
+@*@section Scripts {
+    <script>
+          $(document).ready(function () {
+              $(".Buy").click(function (event) {
+                  event.preventDefault();
+                  var productid = $(this).attr("data-productid");
+                  var quantity = $("#quantity-" + productid).val();
+                  $.ajax({
+                      type: "POST",
+                      url: "@Url.Action("Buy", "Cart")",
+                      data: {
+                          MaSanPham: productid,
+                          SoLuong:quantity
+                      },
+                      success: function (result) {
+                          window.location.href = "@Url.Action("Buy", "Cart")";
+                      }
+                  });
+              });
+          });
+    </script>
+}
+*@

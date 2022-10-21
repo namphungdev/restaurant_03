@@ -15,7 +15,7 @@ namespace Restaurant.Models
 
         public int MaKhachHang { get; set; }
         public string TenKhachHang { get; set; }
-        public int Sdt { get; set; }
+        public string Sdt { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string DiaChi { get; set; }
