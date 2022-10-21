@@ -19,10 +19,12 @@ namespace Restaurant.Models
         public int? SoLuong { get; set; }
         public string DiaChi { get; set; }
         public string Sdt { get; set; }
-        public int? ThanhToan { get; set; }
-        public int? VanChuyen { get; set; }
+        public int? MaThanhToan { get; set; }
+        public int? MaVanChuyen { get; set; }
 
         public virtual KhachHang MaKhachHangNavigation { get; set; }
+        public virtual ThanhToan MaThanhToanNavigation { get; set; }
+        public virtual VanChuyen MaVanChuyenNavigation { get; set; }
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
     }
 }

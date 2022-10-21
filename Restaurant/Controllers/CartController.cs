@@ -84,7 +84,23 @@ namespace Restaurant.Controllers
             return -1;
         }
 
-        
+        public async Task<IActionResult> CheckOut()
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContext.Session, "cart");
+            var login = SessionHelper.GetObjectFromJson<List<Login>>(HttpContext.Session, "login");
+            if (login == null)
+            {
+
+                return RedirectToAction("Index", "KhachHangs");
+
+
+            }
+            else
+            {
+                return View(login);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> thanhtoan(string email, string diachi, string sdt)
         {
@@ -108,8 +124,8 @@ namespace Restaurant.Controllers
             hd.SoLuong = soluong;
             hd.DiaChi = diachi;
             hd.Sdt = sdt;
-            hd.ThanhToan = 0;
-            hd.VanChuyen = 0;
+            hd.MaThanhToan = 0;
+            hd.MaVanChuyen = 0;
             _context.HoaDons.Add(hd);
             _context.SaveChanges();
 
