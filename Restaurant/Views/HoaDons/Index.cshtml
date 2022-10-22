@@ -94,7 +94,8 @@
                                                 @Html.DisplayFor(modelItem => item.NgayLap)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.TongTien)
+                                                @{ var tong = item.TongTien;}
+                                                @String.Format("{0:n0}", tong) ₫ 
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SoLuong)

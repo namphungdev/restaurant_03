@@ -111,7 +111,7 @@ namespace Restaurant.Controllers
             int giamgia = 0;
             foreach(var i in cart)
             {
-                giamgia = ((int?)i.SanPham.Tien).Value - (((int?)i.SanPham.Tien).Value * ((int?)i.SanPham.GiamGia).Value / 100);
+                giamgia = (((int?)i.SanPham.Tien).Value - (((int?)i.SanPham.Tien).Value * ((int?)i.SanPham.GiamGia).Value / 100)) * i.SoLuong;
                 tien = tien + giamgia;
                 soluong = soluong + i.SoLuong;
             }
@@ -124,8 +124,8 @@ namespace Restaurant.Controllers
             hd.SoLuong = soluong;
             hd.DiaChi = diachi;
             hd.Sdt = sdt;
-            hd.MaThanhToan = 0;
-            hd.MaVanChuyen = 0;
+            hd.MaThanhToan = 1;
+            hd.MaVanChuyen = 1;
             _context.HoaDons.Add(hd);
             _context.SaveChanges();
 
@@ -140,7 +140,7 @@ namespace Restaurant.Controllers
                 cthd.TongTien = ((int?)item.SanPham.Tien).Value - (((int?)item.SanPham.Tien).Value * ((int?)item.SanPham.GiamGia).Value / 100);
                 chitiethoadon.Add(cthd);
             }
-            _context.ChiTietHoaDons.AddRange(chitiethoadon);
+            _context.ChiTietHoaDons.AddRange(chitiethoadon); 
             _context.SaveChanges();
              SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContext.Session, "cart").Clear();
             List<GioHang> gioHangs = new List<GioHang>();

@@ -20,8 +20,8 @@ namespace Restaurant.Controllers
 
         // GET: HoaDons
         public async Task<IActionResult> Index(int id)
-        {      
-            var hoadon = _context.HoaDons.Where(p => p.MaKhachHang == id).ToList();        
+        {
+            var hoadon = _context.HoaDons.Include(c => c.MaThanhToanNavigation).Include(c => c.MaVanChuyenNavigation).Where(p => p.MaKhachHang == id).ToList();
             return View(hoadon);
         }
 
