@@ -80,7 +80,8 @@
                                         <input type="number" value="@item.SoLuong" @*id="@($"quantity-{item.SanPham.MaSanPham}")"*@ min="1" class="qty2" name="quantity_1">
                                         <div  class="inc button_inc data-productid" >+</div>
                                         <div class="dec button_inc data-productid">-</div>
-                                    </div>@*<a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.SanPham.MaSanPham">+</a>*@
+                                    </div>
+    @*<a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.SanPham.MaSanPham">+</a>*@
                                 </td>
                                 <td>
                                     <strong>@String.Format("{0:n0}", (item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) * item.SoLuong) ₫</strong>
