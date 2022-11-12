@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Models;
+using Microsoft.AspNetCore.HttpOverrides;
 
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace Restaurant
 
             app.UseAuthorization();
             app.UseSession();
-           
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -73,6 +74,12 @@ namespace Restaurant
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                ForwardedHeaders.XForwardedProto
             });
         }
     }

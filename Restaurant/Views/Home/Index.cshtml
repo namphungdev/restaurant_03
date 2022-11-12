@@ -1,4 +1,6 @@
-﻿<main>
+﻿@model IEnumerable<Restaurant.Models.SanPham>
+
+<main>
     <div id="carousel-home">
         <div class="owl-carousel owl-theme">
             <div class="owl-slide cover lazy" data-bg="url('@Url.Content("~/img/photo2.jpg")')">
@@ -16,7 +18,7 @@
                             </div>
                         </div>
                     </div>
-                </div>             
+                </div>
             </div>
             <!--/owl-slide-->
             <div class="owl-slide cover lazy" data-bg="url('@Url.Content("~/img/photo1.jfif")')">
@@ -124,7 +126,7 @@
                 <h2>Our Daily Menu</h2>
             </div>
             <!-- /main_title -->
-            <div class="banner lazy" data-bg="url(~/img/bone.jpg)">
+            <div class="banner lazy" data-bg="url('@Url.Content("~/img/bone.jpg")')">
                 <div class="wrapper d-flex align-items-center justify-content-between opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)" style="padding-right:0">
                     <div>
                         <small>Special Offer</small>
@@ -137,114 +139,27 @@
                 <!-- /wrapper -->
             </div>
             <!-- /banner -->
-            <div class="row magnific-gallery homepage add_bottom_25">
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/Bo.jpg" title="Summer Berry" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/Bo.jpg" data-src="img/menu_items/Bo.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Summer Berry</h3><em>$8</em>
+            <div class="row homepage add_bottom_25">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-6">
+                        <div class="menu_item">
+                            <figure>
+                                <a href="/Product/Details/@item.MaSanPham" title="Summer Berry" data-effect="mfp-zoom-in">
+                                    <img src="~/img/SanPham/@item.AnhSanPham" data-src="img/SanPham/@item.AnhSanPham" class="lazy" alt="">
+                                </a>
+                            </figure>
+                            <div class="menu_title">
+                                <h3><a style="color:black" href="/Product/Details/@item.MaSanPham">@item.TenSanPham</a></h3><em> @String.Format("{0:n0}", item.Tien)₫ </em>
+                            </div>
+                            <p>@Html.DisplayFor(modelItem => item.MaLoaiSanPhamNavigation.TenLoaiSanPham)</p>
                         </div>
-                        <p>Raspberries, Blackberries</p>
                     </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/salmon.jpg" title="Coconut Tart" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/salmon.jpg" data-src="img/menu_items/salmon.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Coconut Tart</h3><em>$10</em>
-                        </div>
-                        <p>Blueberries, Graham cracker crumbs</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/bocuon.jpg" title="Pumpkin Cookies" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/bocuon.jpg" data-src="img/menu_items/bocuon.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Pumpkin Cookies</h3><em>$11</em>
-                        </div>
-                        <p>Pumpkin, Sugar, Butter</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/my.jpg" title="Cookies Cream Cheese" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/my.jpg" data-src="img/menu_items/my.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Cookies Cream Cheese</h3><em>$14</em>
-                        </div>
-                        <p>Sugar, Butter, Eggs</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/socola.jpg" title="Chocolate Cupcakes" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/socola.jpg" data-src="img/menu_items/socola.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Chocolate Cupcakes</h3><em>$14</em>
-                        </div>
-                        <p>Chocolate, Eggs, Vanilla</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/socola2.jpg" title="Chocolate Cupcakes" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/socola2.jpg" data-src="img/menu_items/socola2.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Chocolate Cupcakes</h3><em>$14</em>
-                        </div>
-                        <p>Chocolate, Eggs, Vanilla</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/crab.jpg" title="Soft shell crab" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/crab.jpg" data-src="img/menu_items/crab.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Soft shell crab</h3><em>$14</em>
-                        </div>
-                        <p>Chicken, Potato, Salad</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-cue="slideInUp">
-                    <div class="menu_item">
-                        <figure>
-                            <a href="~/img/menu_items/large/tom.jpg" title="Soft shell crab" data-effect="mfp-zoom-in">
-                                <img src="~/img/menu_items/tom.jpg" data-src="img/menu_items/tom.jpg" class="lazy" alt="">
-                            </a>
-                        </figure>
-                        <div class="menu_title">
-                            <h3>Soft shell crab</h3><em>$14</em>
-                        </div>
-                        <p>Chicken, Potato, Salad</p>
-                    </div>
-                </div>
+
+                }                      
             </div>
             <!-- /row -->
-            <p class="text-center"><a href="#0" class="btn_1 outline" data-cue="zoomIn">Download Menu</a></p>
+            <p class="text-center"><a asp-controller="Product" asp-action="Index" class="btn_1 outline" data-cue="zoomIn">Xem tất cả món ăn</a></p>
         </div>
         <!-- /container -->
     </div>

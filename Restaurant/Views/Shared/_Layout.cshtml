@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/676603ed47.js" crossorigin="anonymous"></script>
 
     <!-- BASE CSS -->
     <link href="~/css/vendors.min.css" rel="stylesheet">
@@ -32,11 +33,20 @@
     <link href="~/css/blog.css" rel="stylesheet">
     <link href="~/css/shop.css" rel="stylesheet" />
     <link href="~/css/order-food.css" rel="stylesheet">
-   
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+
     @using Restaurant.Helpers;
-    @using Restaurant.Models;
-    @using Microsoft.AspNetCore.Http;
     @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessorr;
+    <style>
+        .content {
+            color: black !important;
+        }
+
+        .content2 {
+            color: white !important;
+        }
+    </style>
+
 
 
 </head>
@@ -58,16 +68,24 @@
             </div>
             <ul id="top_menu">
 
+
                 @if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContextAccessorr.HttpContext.Session, "login") != null)
                 {
 
-                    <li style="line-height:2;"><a asp-controller="Profile" asp-action="Index" style="font-size: 15px; color: black"> Tài khoản</a></li>
-                    <li style="line-height:2;"><a asp-controller="KhachHangs" asp-action="Logout" style="font-size: 15px; color: black">  &ensp; |  &ensp; Đăng xuất</a></li>
+                    var login = SessionHelper.GetObjectFromJson<List<Login>>(HttpContextAccessorr.HttpContext.Session, "login");
+                    foreach (var i in login)
+                    {
+                        var ten = i.khachHang.TenKhachHang;
+                        @*<li><a asp-controller="Profile" asp-action="Index" class="search-overlay-menu-btn"><i class="fa-thin fa-user"></i></a></li>*@
+                        <li style="line-height:2;"><a class="content2" asp-controller="Profile" asp-action="Index" style="font-size: 15px"> @(ten)</a></li>
+                    }
                 }
                 else
                 {
-                    <li style="line-height:2;"><a asp-controller="KhachHangs" asp-action="Index" style="font-size: 15px; color: black">Đăng nhập</a></li>
+                    <li style="line-height:2;"><a class="content2" asp-controller="KhachHangs" asp-action="Index" style="font-size: 15px">Đăng nhập</a></li>
+
                 }
+
 
 
                 <!--<li>
@@ -114,18 +132,18 @@
                     <li class="submenu">
                         <a asp-controller="Home" asp-action="Index" class="show-submenu">Home</a>
                     </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Menu</a>
-                        <ul>
-                            <li><a href="menu-1.html">Menu 2 Column</a></li>
-                            <li><a href="menu-2.html">Menu Add To Cart</a></li>
-                            <li><a href="menu-3.html">Menu With Tabs</a></li>
-                            <li><a href="menu-4.html">Menu Grid</a></li>
-                            <li><a href="menu-of-the-day.html">Menu of the Day <span class="badge badge-danger">HOT</span></a></li>
-                            <li><a href="order-food.html">Order Food</a></li>
-                            <li><a href="confirm.html">Confirm</a></li>
-                        </ul>
-                    </li>
+                    @*<li class="submenu">
+                            <a href="#0" class="show-submenu">Menu</a>
+                            <ul>
+                                <li><a href="menu-1.html">Menu 2 Column</a></li>
+                                <li><a href="menu-2.html">Menu Add To Cart</a></li>
+                                <li><a href="menu-3.html">Menu With Tabs</a></li>
+                                <li><a href="menu-4.html">Menu Grid</a></li>
+                                <li><a href="menu-of-the-day.html">Menu of the Day <span class="badge badge-danger">HOT</span></a></li>
+                                <li><a href="order-food.html">Order Food</a></li>
+                                <li><a href="confirm.html">Confirm</a></li>
+                            </ul>
+                        </li>*@
                     @* <li class="submenu">
                             <a href="#0" class="show-submenu">Other Pages</a>
                             <ul>
@@ -151,10 +169,26 @@
                         <a asp-controller="Blog" asp-action="Index" class="show-submenu">Blog</a>
 
                     </li>
-                    <li class="submenu">
-                        <a class="cart-head visible-xs show-submenu" asp-controller="cart" asp-action="index" style="position:relative;">
-                            <img style="width: 30%;" src="https://theme.hstatic.net/1000319111/1000411564/14/cart-icon.png?v=1032" alt="" title="" />
-                            <span style="position:relative; display: inline-block" class="hd-cart-count"></span>
+                    <li>
+                        <a asp-controller="cart" asp-action="index">
+                            <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+                            <i class="fa-sharp fa-solid " style="font-family: Arial">
+                                (@if (SessionHelper.GetObjectFromJson<List<Login>>(HttpContextAccessorr.HttpContext.Session, "cart") != null)
+                                {
+                                    var cart = SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContextAccessorr.HttpContext.Session, "cart");
+                                    int total = 0;
+                                    foreach (var i in cart)
+                                    {
+                                        total += i.SoLuong;
+                                    }
+                                    @(total)
+                                }
+                                else
+                                {
+                                    @(0)
+                                })
+
+                            </i>
                         </a>
 
 
@@ -164,13 +198,14 @@
             </nav>
         </div>
         <!-- Search -->
-        <div class="search-overlay-menu">
+        <!--<div class="search-overlay-menu">
             <span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
             <form role="search" id="searchform" method="get">
                 <input value="" name="q" type="search" placeholder="Search..." />
                 <button type="submit"><i class="icon_search"></i></button>
             </form>
-        </div><!-- End Search -->
+        </div>-->
+        <!-- End Search -->
     </header>
     <!-- /header -->
 
@@ -277,15 +312,53 @@
             autoPlayVideo: true
         });
     </script>
+    <script>
+
+
+        @*   const color = document.getElementById("color");
+        const sticky = color.offsetTop;
+        function myFunction() {
+
+            if (window.pageYOffset >= sticky) {
+                color.classList.add("content")
+            } else {
+                color.classList.remove("content");
+            }
+        }*@
+        $(function () {
+            var header = $(".content2");
+            $(window).scroll(function () {
+                var scroll = $(window).scrollTop();
+
+                if (scroll >= 10) {
+                    header.removeClass('content2').addClass("content ");
+
+                } else {
+                    header.removeClass("content ").addClass('content2');
+
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            // Handler for .ready() called.
+            $('html, body').animate({
+                scrollTop: $('#load').offset().top
+            }, 'slow');
+        });
+
+    </script>
 
     <!-- SPECIFIC SCRIPTS (wizard form) -->
     <script src="~/js/wizard/wizard_scripts.min.js" type="text/javascript"></script>
     <script src="~/js/wizard/wizard_func.js" type="text/javascript"></script>
-    <script src="~/js/sticky_sidebar.min.js"></script>
-    <script src="~/js/shop_order_func.js"></script>
-    <script src="~/js/specific_shop.js"></script>
-    <script src="~/js/slider.js"></script>
+    <script src="~/js/sticky_sidebar.min.js" type="text/javascript"></script>
+    <script src="~/js/shop_order_func.js" type="text/javascript"></script>
+    <script src="~/js/specific_shop.js" type="text/javascript"></script>
+    <script src="~/js/slider.js" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/676603ed47.js" crossorigin="anonymous"></script>
+
 
     @*@await Component.InvokeAsync("Notyf")*@
     @* @await RenderSectionAsync("Scripts", required: false)*@

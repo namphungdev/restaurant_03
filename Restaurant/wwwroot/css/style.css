@@ -555,6 +555,10 @@ header.sticky a.open_close,
   font-size: 0.875rem;
   font-weight: 500;
 }
+    .main-menu > ul > li > a > i {
+        border: 8px ;
+        float: left;
+    }
 .main-menu > ul > li:hover > a {
   color: #978667;
 }
@@ -777,18 +781,20 @@ header.header_in .main-menu > ul > li:hover > a {
     display: block;
     color: #333 !important;
   }
+   
 
   .main-menu li {
     position: relative;
   }
 
-  .main-menu ul > li {
-    padding-bottom: 0;
-  }
+    .main-menu ul > li {
+        padding-bottom: 0;
+        height: 53px;
+    }
 
-  .main-menu ul > li i {
-    float: right;
-  }
+    .main-menu ul > li i {
+        float: right;  
+    }
 
   .main-menu > ul > li.submenu:hover > a:after {
     transform: rotate(180deg);

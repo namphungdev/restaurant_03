@@ -233,7 +233,7 @@ namespace Restaurant.Models
                     .WithMany(p => p.SanPhams)
                     .HasForeignKey(d => d.MaLoaiSanPham)
                     .HasConstraintName("FK__SanPham__MaLoaiS__3B75D760");
-
+     
                 entity.HasOne(d => d.MaThucDonNavigation)
                     .WithMany(p => p.SanPhams)
                     .HasForeignKey(d => d.MaThucDon)

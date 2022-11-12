@@ -1,0 +1,27 @@
+﻿
+
+@{
+    ViewBag.Title = "PaymentConfirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main class="pattern_2">
+
+    <div class="container margin_60_40" style="margin-top: 60px">
+        <div class="row justify-content-center" style="align-items:center; text-align: center">
+            <h1>@ViewBag.Alert</h1>
+        </div>
+        <div class="row justify-content-center" style="align-items:center">
+            <h2>@ViewBag.Message</h2>
+            <h2>@ViewBag.Id</h2>
+            <h2>@ViewBag.Error</h2>
+        </div>
+        <div class="row justify-content-center" style="align-items:center; text-align: center">
+            <center><a asp-controller="Home" asp-action="Index" style="font-size:25px">Trở về trang chủ</a></center>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</main>
+<!-- /main -->
