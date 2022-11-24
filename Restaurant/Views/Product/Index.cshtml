@@ -49,8 +49,8 @@
                         @using (Html.BeginForm("Index", "product", FormMethod.Get, new { @class = "form-inline" }))
                         {
                         <form role="search" id="searchform" method="get">
-                            <input value="@ViewBag.Keyword" name="searchString" type="search" placeholder="Search..." />
-                            <button type="submit" value="Tìm San Phẩm">@*<i class="icon_search"></i>*@Tìm kiếm</button>
+                            <input value="@ViewBag.Keyword" name="searchString" type="search" placeholder="Tìm kiếm..." style="outline: none" />
+                            <button type="submit" value="Tìm San Phẩm" style="border: none; background-color: white; outline:none; margin-left: 10px"><i class="icon_search"></i></button>
                         </form>
                         }
                         
@@ -94,14 +94,16 @@
                                 <figure>
                                     <span class="ribbon off">-@item.GiamGia%</span>
                                     <a href="/Product/Details/@item.MaSanPham">
-                                        <img class="img-fluid lazy" src="~/img/SanPham/@item.AnhSanPham" alt="">
+                                        <img style="height:267px; width: 178px ; object-fit: cover" class="img-fluid lazy" src="~/img/SanPham/@item.AnhSanPham" alt="">
 
                                     </a>
-                                    <a  asp-controller="Cart" asp-action="Buy" asp-route-id="@item.MaSanPham">
-                                        <div class="add_cart"><span class="btn_1">Thêm vào giỏ hàng</span></div>
-
-
-                                    </a>
+                                    <form asp-controller="Cart" asp-action="Buy" asp-route-id="@item.MaSanPham" >
+                                        <button type="submit" style="border: none" >
+                                            <input hidden name="soluong" value="1"/>
+                                            <div class="add_cart"><span class="btn_1">Thêm vào giỏ hàng</span></div>
+                                        </button>
+                                    </form>
+                                    
                                 </figure>
                                 <div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i></div>
                                 <a href="Product/Details/@item.MaSanPham">

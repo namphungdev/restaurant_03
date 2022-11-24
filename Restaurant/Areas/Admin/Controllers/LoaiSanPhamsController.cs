@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Helpers;
 using Restaurant.Models;
 
 namespace Restaurant.Areas.Admin.Controllers
@@ -18,35 +19,57 @@ namespace Restaurant.Areas.Admin.Controllers
         {
             _context = context;
         }
-
+        private Boolean isExist()
+        {
+            if (SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin") != null && SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin").Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         // GET: Admin/LoaiSanPhams
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LoaiSanPhams.ToListAsync());
+            if (isExist())
+            {
+                return View(await _context.LoaiSanPhams.ToListAsync());
+            }
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // GET: Admin/LoaiSanPhams/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var loaiSanPham = await _context.LoaiSanPhams
-                .FirstOrDefaultAsync(m => m.MaLoaiSanPham == id);
-            if (loaiSanPham == null)
-            {
-                return NotFound();
-            }
+                var loaiSanPham = await _context.LoaiSanPhams
+                    .FirstOrDefaultAsync(m => m.MaLoaiSanPham == id);
+                if (loaiSanPham == null)
+                {
+                    return NotFound();
+                }
 
-            return View(loaiSanPham);
+                return View(loaiSanPham);
+            }
+            return RedirectToAction("Login", "Home");
+          
         }
 
         // GET: Admin/LoaiSanPhams/Create
         public IActionResult Create()
         {
-            return View();
+            if (isExist())
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/LoaiSanPhams/Create
@@ -68,17 +91,22 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/LoaiSanPhams/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
-            if (loaiSanPham == null)
-            {
-                return NotFound();
+                var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
+                if (loaiSanPham == null)
+                {
+                    return NotFound();
+                }
+                return View(loaiSanPham);
             }
-            return View(loaiSanPham);
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/LoaiSanPhams/Edit/5
@@ -119,19 +147,24 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/LoaiSanPhams/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var loaiSanPham = await _context.LoaiSanPhams
-                .FirstOrDefaultAsync(m => m.MaLoaiSanPham == id);
-            if (loaiSanPham == null)
-            {
-                return NotFound();
-            }
+                var loaiSanPham = await _context.LoaiSanPhams
+                    .FirstOrDefaultAsync(m => m.MaLoaiSanPham == id);
+                if (loaiSanPham == null)
+                {
+                    return NotFound();
+                }
 
-            return View(loaiSanPham);
+                return View(loaiSanPham);
+            }
+            return RedirectToAction("Login", "Home");
+            
         }
 
         // POST: Admin/LoaiSanPhams/Delete/5

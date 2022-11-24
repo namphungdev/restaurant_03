@@ -1,4 +1,4 @@
-﻿ @model IEnumerable<Restaurant.Models.GioHang>
+﻿@model IEnumerable<Restaurant.Models.GioHang>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,6 +7,46 @@
     <link href="~/css/shop.css" rel="stylesheet" />
     <link href="~/css/custom.css" rel="stylesheet" />
     <link href="~/css/wizard.css" rel="stylesheet" />
+    <style>
+       @* .wrapper {
+            height: 40px;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+            .wrapper span {
+                width: 100%;
+                text-align: center;
+                font-size: 15px;
+                font-weight: 550;
+            }
+            .wrapper button {
+                width: 100%;
+                text-align: center;
+                font-size: 15px;
+                font-weight: 550;
+                border: 0px;
+                background: #ffffff;
+            }
+            .wrapper input {
+                width: 100%;
+                text-align: center;
+                font-size: 15px;
+                font-weight: 550;
+                border: 0px;
+            }
+                input:focus {
+                    outline: none;
+                }
+
+                .wrapper span.num {
+                    font-size: 14px
+                }*@
+    </style>
 }
 
 
@@ -76,12 +116,20 @@
                                     <strong>@String.Format("{0:n0}", item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) ₫ </strong>
                                 </td>
                                 <td>
-                                    <div class="numbers-row">
-                                        <input type="number" value="@item.SoLuong" @*id="@($"quantity-{item.SanPham.MaSanPham}")"*@ min="1" class="qty2" name="quantity_1">
-                                        <div  class="inc button_inc data-productid" >+</div>
-                                        <div class="dec button_inc data-productid">-</div>
+                                    <div class="">
+                                        <form id="form-id" asp-action="update" asp-controller="Cart" asp-route-id="@item.SanPham.MaSanPham">
+                                            <input type="number" onchange="document.getElementById('form-id').submit()" value="@item.SoLuong" @*id="@($"quantity-{item.SanPham.MaSanPham}")"*@ min="1" class="qty2" name="soluong">
+                                            @*<div class="inc button_inc data-productid" style="z-index: 1" onclick="myFunction(" plus")">+</div>
+                                                <div class="dec button_inc data-productid" style="z-index: 1" onclick="myFunction(" des")">-</div>*@
+                                        </form>
                                     </div>
-    @*<a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.SanPham.MaSanPham">+</a>*@
+                                    @* <div class="wrapper">
+                                            <button class="minus">-</button>
+                                            <input class="num" value="1" id="1" name="soluong"/>
+                                            <button class="plus">+</button>
+                                        </div>*@
+
+                                    @*<a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.SanPham.MaSanPham">+</a>*@
                                 </td>
                                 <td>
                                     <strong>@String.Format("{0:n0}", (item.SanPham.Tien - (item.SanPham.Tien * item.SanPham.GiamGia / 100)) * item.SoLuong) ₫</strong>
@@ -155,29 +203,55 @@
 
 </main>
 <!-- /main -->
+<script>
+    document.querySelector(".dec button_inc").addEventListener("click", myFunction);
+    function myFunction(param) {
+        const value = document.querySelector(".qty2").value
+        param == "des" ? value-- : value++;
+        console.log(value);
+    }
+</script>
+@*<script>
+        const plus = document.querySelector(".plus"),
+            minus = document.querySelector(".minus"),
+            num = document.querySelector(".num");
+        let a = 1;
+        plus.addEventListener("click", () => {
+            a++;
+            a = (a < 10) ? "0" + a : a;
+            num.innerText = a;
 
+        });
+        minus.addEventListener("click", () => {
+            if (a > 1) {
+                a--;
+                a = (a < 10) ? "0" + a num.innerText = a;
+                num.innerText = a;
+            }
+        });
+    </script>*@
 
 
 @*@section Scripts {
-    <script>
-          $(document).ready(function () {
-              $(".Buy").click(function (event) {
-                  event.preventDefault();
-                  var productid = $(this).attr("data-productid");
-                  var quantity = $("#quantity-" + productid).val();
-                  $.ajax({
-                      type: "POST",
-                      url: "@Url.Action("Buy", "Cart")",
-                      data: {
-                          MaSanPham: productid,
-                          SoLuong:quantity
-                      },
-                      success: function (result) {
-                          window.location.href = "@Url.Action("Buy", "Cart")";
-                      }
+        <script>
+              $(document).ready(function () {
+                  $(".Buy").click(function (event) {
+                      event.preventDefault();
+                      var productid = $(this).attr("data-productid");
+                      var quantity = $("#quantity-" + productid).val();
+                      $.ajax({
+                          type: "POST",
+                          url: "@Url.Action("Buy", "Cart")",
+                          data: {
+                              MaSanPham: productid,
+                              SoLuong:quantity
+                          },
+                          success: function (result) {
+                              window.location.href = "@Url.Action("Buy", "Cart")";
+                          }
+                      });
                   });
               });
-          });
-    </script>
-}
+        </script>
+    }
 *@

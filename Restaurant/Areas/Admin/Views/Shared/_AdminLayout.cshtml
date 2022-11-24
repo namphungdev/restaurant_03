@@ -24,6 +24,84 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/b-print-2.3.3/datatables.min.js"></script>
+
+    <style>
+        table th {
+            background-color: black !important;
+            color: white !important;
+        }
+
+        table > tbody > tr > td {
+            vertical-align: middle !important;
+        }
+
+        .btn-group, .btn-group-vertical {
+            position: absolute !important;
+        }
+
+        .dt-button {
+            border: 0px !important;
+            width: 50px !important;
+            height: 50px !important;
+        }
+
+        .btn-success {
+            background-color: green !important;
+        }
+
+        .btn-danger {
+            background-color: red !important;
+        }
+
+        .btn-info {
+            background-color: dodgerblue !important;
+        }
+
+        .btn-warning {
+            background-color: yellow !important;
+            border: none !important;
+            color: black !important;
+        }
+
+        .dataTables_wrapper .dataTables_info {
+            clear: both;
+            float: none !important;
+            padding-top: 0.755em;
+        }
+
+        .dataTables_length {
+            padding-top: 0.755em;
+        }
+
+        .current {
+            background-color: black !important;
+            border-bottom-left-radius: 50% !important;
+            border-bottom-right-radius: 50% !important;
+            border-top-left-radius: 50% !important;
+            border-top-right-radius: 50% !important;
+        }
+
+        .paginate_button {
+            border-bottom-left-radius: 50% !important;
+            border-bottom-right-radius: 50% !important;
+            border-top-left-radius: 50% !important;
+            border-top-right-radius: 50% !important;
+        }
+
+            .paginate_button:hover {
+                background-color: #808080 !important;
+            }
+    </style>
+
 </head>
 
 <body>
@@ -51,7 +129,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/admin/home/index">
                         <!-- Logo icon -->
                         <b class="logo-icon ps-2">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -214,35 +292,18 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="~/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" >
                                     <i class="ti-user me-1 ms-1"></i>
-                                    My Profile
+                                    Admin
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-wallet me-1 ms-1"></i>
-                                    My Balance
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-email me-1 ms-1"></i>
-                                    Inbox
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-settings me-1 ms-1"></i> Account Setting
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <div class="dropdown-divider"></div>                                                         
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Logout" aria-expanded="false">
                                     <i class="fa fa-power-off me-1 ms-1"></i> Logout
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <div class="ps-4 p-10">
-                                    <a href="javascript:void(0)"
-                                       class="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
-                                </div>
+                                </a>                                                   
                             </ul>
                         </li>
                         <!-- ============================================================== -->
@@ -266,21 +327,21 @@
                     <ul id="sidebarnav" class="pt-4">
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-area="admin" asp-controller="KhachHangs" asp-action="Index" aria-expanded="false">
-                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                               asp-area="admin" asp-controller="HoaDons" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Quản lý đơn hàng</span>
                             </a>
                         </li>
                         @*quản lý sản phẩm *@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                asp-area="Admin" asp-controller="SanPhams" asp-action="Index" aria-expanded="false">
-                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Quảng lý sản phẩm </span>
+                                <i class="mdi mdi-chart-bar"></i><span class="hide-menu">Quản lý sản phẩm </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                asp-area="Admin" asp-controller="LoaiSanPhams" asp-action="Index" aria-expanded="false">
-                                <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Chi tiết Loại Sản Phẩm</span>
+                                <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Chi tiết loại Sản Phẩm</span>
                             </a>
                         </li>
                         @* quản lý khách hàng*@
@@ -293,22 +354,22 @@
                         @*quản lý đơn hàng*@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-area="Admin" asp-controller="    " asp-action="Index" aria-expanded="false">
-                                <i class="mdi mdi-border-inside"></i><span class="hide-menu">Quản lý đơn hàng</span>
+                               asp-area="Admin" asp-controller="ThanhToans" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-border-inside"></i><span class="hide-menu">Qui trình thanh toán</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                               asp-area="Admin" asp-controller="ThucDons" asp-action="Index" aria-expanded="false">
-                                <i class="mdi mdi-blur-linear"></i><span class="hide-menu">Quản lý Thực Đơn</span>
+                               asp-area="Admin" asp-controller="VanChuyens" asp-action="Index" aria-expanded="false">
+                                <i class="mdi mdi-blur-linear"></i><span class="hide-menu">Qui trình vận chuyển</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            @*<a class="sidebar-link has-arrow waves-effect waves-dark"
-               href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-receipt"></i><span class="hide-menu">Quản lý Thực Đơn </span>
-            </a>*@
-                            <ul aria-expanded="false" class="collapse  first-level">
+                        <!--<li class="sidebar-item">-->
+                        @*<a class="sidebar-link has-arrow waves-effect waves-dark"
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-receipt"></i><span class="hide-menu">Quản lý Thực Đơn </span>
+                            </a>*@
+                        <!--<ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="form-basic.html" class="sidebar-link">
                                         <i class="mdi mdi-note-outline"></i><span class="hide-menu">
@@ -324,9 +385,9 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         @*Chi tiết Hóa Đơn*@
-                        <li class="sidebar-item">
+                        <!--<li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                asp-area="Admin" asp-controller="ChiTietHoaDons" asp-action="Index" aria-expanded="false">
                                 <i class="mdi mdi-relative-scale"></i><span class="hide-menu">Chi tiết Thực Đơn</span>
@@ -357,13 +418,13 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                              asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
+                               asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
                                 <i class="mdi mdi-pencil"></i><span class="hide-menu">Chức vụ</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                              asp-area="Admin" asp-controller="Gopies" asp-action="Index" aria-expanded="false">
+                               asp-area="Admin" asp-controller="Gopies" asp-action="Index" aria-expanded="false">
                                 <i class="mdi mdi-pencil"></i><span class="hide-menu">Góp ý</span>
                             </a>
                         </li>
@@ -409,11 +470,11 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                         @* Quản lý tài khoản*@
-                        <li class="sidebar-item">
+                        <!--<li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark"
-                              asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
+                               asp-area="Admin" asp-controller="ChucVus" asp-action="Index" aria-expanded="false">
                                 <i class="mdi mdi-account-key"></i><span class="hide-menu">Quản lý tài khoản(chức vụ) </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -466,7 +527,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -483,21 +544,6 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Dashboard</h4>
-                        <div class="ms-auto text-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -505,16 +551,13 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
 
-            @RenderBody();
+            @RenderBody()
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://www.wrappixel.com">WrapPixel</a>.
-            </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -529,7 +572,7 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/assets/libs/jquery/dist/jquery.min.js"></script>*@
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -551,6 +594,72 @@
     <script src="~/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/dist/js/pages/chart/chart-page-init.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                responsive: "true",
+                lengthChange: "false",
+                autoWidth: "false",
+                dom: 'Bfrtilp',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fas fa-file-excel"></i> ',
+                        titleAttr: 'Exportar a Excel',
+                        className: 'btn btn-success'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fas fa-file-pdf"></i> ',
+                        titleAttr: 'Exportar a PDF',
+                        className: 'btn btn-danger'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> ',
+                        titleAttr: 'Imprimir',
+                        className: 'btn btn-info'
+                    },
+                ]
+            });
+        });
+
+    </script>
+
+    @* <script>
+            $(document).ready(function () {
+                $('#table_id').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+            });
+        </script>*@
+    @* <script>
+
+            $(document).ready(function () {
+                $("#table_id").DataTable({
+                    lengthMenu: [
+                        [5, 10, 15, -1],
+                        [5, 10, 15, 'All'],
+                    ],
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#table_id_wrapper .col-md-6:eq(0)');
+                $('#table_id').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            });
+
+        </script>*@
 
 </body>
 

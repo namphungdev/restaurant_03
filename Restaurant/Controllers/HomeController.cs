@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Restaurant.Controllers
 {
@@ -46,6 +47,15 @@ namespace Restaurant.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }    
+        }
+        public IActionResult test(int id , int total)
+        {
+
+            ViewBag.id = id; // id=Pham
+            ViewBag.name = total;         
+            /*ViewBag.name = Request.Query["ten"]; // ten=Sơn*/
+            return View();
+        }
+        
     }
 }

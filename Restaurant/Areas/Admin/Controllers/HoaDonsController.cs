@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Helpers;
 using Restaurant.Models;
 
 namespace Restaurant.Areas.Admin.Controllers
@@ -18,31 +19,51 @@ namespace Restaurant.Areas.Admin.Controllers
         {
             _context = context;
         }
-
+        private Boolean isExist()
+        {
+            if (SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin") != null && SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin").Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         // GET: Admin/HoaDons
         public async Task<IActionResult> Index()
-        {
-            var restaurantContext = _context.HoaDons.Include(h => h.MaKhachHangNavigation);
-            return View(await restaurantContext.ToListAsync());
+        {          
+            if (isExist())
+            {
+                var restaurantContext = _context.HoaDons.Include(h => h.MaThanhToanNavigation).Include(i => i.MaVanChuyenNavigation);
+                return View(await restaurantContext.ToListAsync());
+            }
+            return RedirectToAction("Login", "Home");
+
+           
         }
 
         // GET: Admin/HoaDons/Details/5
         public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+        {         
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var hoaDon = await _context.HoaDons
-                .Include(h => h.MaKhachHangNavigation)
-                .FirstOrDefaultAsync(m => m.MaHoaDon == id);
-            if (hoaDon == null)
-            {
-                return NotFound();
-            }
+                var hoaDon = await _context.HoaDons
+                    .Include(h => h.MaKhachHangNavigation)
+                    .Include(i => i.MaThanhToanNavigation)
+                    .Include(u => u.MaVanChuyenNavigation)
+                    .FirstOrDefaultAsync(m => m.MaHoaDon == id);
+                if (hoaDon == null)
+                {
+                    return NotFound();
+                }
 
-            return View(hoaDon);
+                return View(hoaDon);
+            }
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // GET: Admin/HoaDons/Create
@@ -72,18 +93,35 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/HoaDons/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var hoaDon = await _context.HoaDons.FindAsync(id);
-            if (hoaDon == null)
-            {
-                return NotFound();
+                /*var hoaDon = await _context.HoaDons.FindAsync(id);*/
+                var hoaDon = await _context.HoaDons
+                   .Include(h => h.MaKhachHangNavigation)
+                   .Include(i => i.MaThanhToanNavigation)
+                   .Include(u => u.MaVanChuyenNavigation)
+                   .FirstOrDefaultAsync(m => m.MaHoaDon == id);
+                var cthd = _context.ChiTietHoaDons
+                    .Include(c => c.MaSanPhamNavigation)
+                    .Include(c => c.MaHoaDonNavigation)
+                    .Where(m => m.MaHoaDon == id).ToList();
+                if (hoaDon == null)
+                {
+                    return NotFound();
+                }
+                ViewData["cthd"] = cthd;
+                ViewData["MaKhachHang"] = new SelectList(_context.KhachHangs, "MaKhacHang", "TenKhachHang", hoaDon.MaKhachHang);
+                ViewData["MaThanhToan"] = new SelectList(_context.ThanhToans, "MaThanhToan", "TrangThaiThanhToan", hoaDon.MaThanhToan);
+                ViewData["MaVanChuyen"] = new SelectList(_context.VanChuyens, "MaVanChuyen", "TrangThaiVanChuyen", hoaDon.MaVanChuyen);
+                return View(hoaDon);
             }
-            ViewData["MaKhachHang"] = new SelectList(_context.KhachHangs, "MaKhachHang", "DiaChi", hoaDon.MaKhachHang);
-            return View(hoaDon);
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/HoaDons/Edit/5
@@ -91,7 +129,7 @@ namespace Restaurant.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaHoaDon,MaKhachHang,NgayLap,TongTien,SoLuong,DiaChi")] HoaDon hoaDon)
+        public async Task<IActionResult> Edit(int id, [Bind("MaHoaDon,MaKhachHang,NgayLap,TongTien,SoLuong,DiaChi,Sdt,MaThanhToan,MaVanChuyen")] HoaDon hoaDon)
         {
             if (id != hoaDon.MaHoaDon)
             {
@@ -117,28 +155,34 @@ namespace Restaurant.Areas.Admin.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["MaKhachHang"] = new SelectList(_context.KhachHangs, "MaKhachHang", "DiaChi", hoaDon.MaKhachHang);
+            }         
             return View(hoaDon);
         }
 
         // GET: Admin/HoaDons/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var hoaDon = await _context.HoaDons
-                .Include(h => h.MaKhachHangNavigation)
-                .FirstOrDefaultAsync(m => m.MaHoaDon == id);
-            if (hoaDon == null)
-            {
-                return NotFound();
-            }
+                var hoaDon = await _context.HoaDons
+                    .Include(h => h.MaKhachHangNavigation)
+                    .Include(i => i.MaThanhToanNavigation)
+                    .Include(u => u.MaVanChuyenNavigation)
+                    .FirstOrDefaultAsync(m => m.MaHoaDon == id);
+                if (hoaDon == null)
+                {
+                    return NotFound();
+                }
 
-            return View(hoaDon);
+                return View(hoaDon);
+            }
+            return RedirectToAction("Login", "Home");
+            
         }
 
         // POST: Admin/HoaDons/Delete/5
@@ -147,7 +191,10 @@ namespace Restaurant.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var hoaDon = await _context.HoaDons.FindAsync(id);
+            var cthd = await _context.ChiTietHoaDons.FirstOrDefaultAsync(m => m.MaHoaDon == id);
+            _context.ChiTietHoaDons.Remove(cthd);
             _context.HoaDons.Remove(hoaDon);
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

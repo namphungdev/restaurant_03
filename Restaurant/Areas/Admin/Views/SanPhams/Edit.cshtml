@@ -5,9 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container-fluid">
-    <h1>Edit</h1>
-
-    <h4>SanPham</h4>
+    <h1>Chỉnh sửa sản phẩm </h1>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -82,10 +80,6 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Trở về</a>
     </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
-   </div>
+</div>

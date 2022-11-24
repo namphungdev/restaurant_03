@@ -41,7 +41,7 @@ namespace Restaurant.Controllers
             var kh = _context.KhachHangs.ToList();
             var data = _context.KhachHangs.Where(p => p.Email ==  email && p.Password == password).ToList();
             if(data.Count() > 0)
-            {
+            { 
                 List<Login> khachhang = new List<Login>();
                 khachhang.Add(new Login { khachHang = kh.Find(p=>p.Email == email)});
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "login", khachhang);

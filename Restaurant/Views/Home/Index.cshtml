@@ -1,5 +1,22 @@
 ﻿@model IEnumerable<Restaurant.Models.SanPham>
 
+@{
+    @*<script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
+    <style>
+        iframe {
+            height: 300px;
+            width: 350px;
+        }
+
+        @@media (min-width: 600px) {
+            iframe {
+                height: 50vh;
+                width: 50vw
+            }
+    </style>
+}
+
 <main>
     <div id="carousel-home">
         <div class="owl-carousel owl-theme">
@@ -13,7 +30,7 @@
                                     <p class="owl-slide-animated owl-slide-subtitle">
                                         Cooking delicious food since 2005
                                     </p>
-                                    <div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll" href="menu-1.html" role="button">Read more</a></div>
+                                    <div class="owl-slide-animated owl-slide-cta"><a class="btn_1 btn_scroll"  href="" role="button">Read more</a></div>
                                 </div>
                             </div>
                         </div>
@@ -31,11 +48,11 @@
                                     <p class="owl-slide-animated owl-slide-subtitle">
                                         Cooking delicious food since 2005
                                     </p>
-                                    <div class="owl-slide-animated owl-slide-cta"><a class="btn_1" href="reservations.html" role="button">Read more</a></div>
+                                    <div class="owl-slide-animated owl-slide-cta"><a class="btn_1" href="" role="button">Read more</a></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
             <!--/owl-slide-->
@@ -156,7 +173,7 @@
                         </div>
                     </div>
 
-                }                      
+                }
             </div>
             <!-- /row -->
             <p class="text-center"><a asp-controller="Product" asp-action="Index" class="btn_1 outline" data-cue="zoomIn">Xem tất cả món ăn</a></p>
@@ -167,21 +184,25 @@
 
     <div class="call_section lazy" data-bg="url(https://i.pinimg.com/564x/4c/ef/61/4cef61cdba20ee5d0312d407a3ff0d07.jpg)">
         <div class="container clearfix">
-            <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-6 text-center">
-                    <div class="box_1" data-cue="slideInUp">
-                        <h2>Celebrate<span>a Special Event with us!</span></h2>
-                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                        <a href="contacts.html" class="btn_1 mt-3">Contact us</a>
+            @*<div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6 text-center">
+                        <div class="box_1" data-cue="slideInUp">
+                            <h2>Celebrate<span>a Special Event with us!</span></h2>
+                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                            <a href="contacts.html" class="btn_1 mt-3">Contact us</a>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
+            <center>
+                <h1 style="color:white; margin:30px; font-weight: 700">Thông tin địa chỉ nhà hàng </h1>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.6894267175453!2d106.8307859403171!3d10.839364741558986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175218a84a88243%3A0xe6bd24c6a8e9507c!2sVinHomes%20Qu%E1%BA%ADn%209!5e0!3m2!1svi!2s!4v1668581900394!5m2!1svi!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </center>
         </div>
     </div>
     <!--/call_section-->
 
     <div class="pattern_2">
-        <div class="container margin_120_100 pb-0">
+        <div class="container margin_12 100 pb-0">
             <div class="row justify-content-center">
                 <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp">
                     <img src="~/img/chef.png" width="420" height="770" alt="" class="img-fluid">
@@ -324,3 +345,10 @@
     </div>
     <!-- /pattern_2 -->
 </main>
+@*<script>
+    function sweetalert() {
+        swal("Hello world!");
+    }
+
+    sweetalert();
+</script>*@

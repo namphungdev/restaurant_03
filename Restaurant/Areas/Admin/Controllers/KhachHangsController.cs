@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Helpers;
 using Restaurant.Models;
 
 namespace Restaurant.Areas.Admin.Controllers
@@ -19,16 +20,35 @@ namespace Restaurant.Areas.Admin.Controllers
             _context = context;
         }
 
+        private Boolean isExist()
+        {
+            if (SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin") != null && SessionHelper.GetObjectFromJson<List<Models.Admin>>(HttpContext.Session, "loginadmin").Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         // GET: Admin/KhachHangs
         public async Task<IActionResult> Index()
         {
-            var restaurantContext = _context.KhachHangs.Include(k => k.MaChucVuNavigation);
-            return View(await restaurantContext.ToListAsync());
+            if (isExist())
+            {
+                var restaurantContext = _context.KhachHangs.Include(k => k.MaChucVuNavigation);
+                return View(await restaurantContext.ToListAsync());
+            }
+            return RedirectToAction("Login", "Home");
+            
         }
 
         // GET: Admin/KhachHangs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (isExist())
+            {
+                var restaurantContext = _context.KhachHangs.Include(k => k.MaChucVuNavigation);
+                return View(await restaurantContext.ToListAsync());
+            }
+            return RedirectToAction("Login", "Home");
             if (id == null)
             {
                 return NotFound();
@@ -48,8 +68,13 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/KhachHangs/Create
         public IActionResult Create()
         {
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVus, "MaChucVu", "MaChucVu");
-            return View();
+            if (isExist())
+            {
+                ViewData["MaChucVu"] = new SelectList(_context.ChucVus, "MaChucVu", "MaChucVu");
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/KhachHangs/Create
@@ -72,18 +97,23 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/KhachHangs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var khachHang = await _context.KhachHangs.FindAsync(id);
-            if (khachHang == null)
-            {
-                return NotFound();
+                var khachHang = await _context.KhachHangs.FindAsync(id);
+                if (khachHang == null)
+                {
+                    return NotFound();
+                }
+                ViewData["MaChucVu"] = new SelectList(_context.ChucVus, "MaChucVu", "MaChucVu", khachHang.MaChucVu);
+                return View(khachHang);
             }
-            ViewData["MaChucVu"] = new SelectList(_context.ChucVus, "MaChucVu", "MaChucVu", khachHang.MaChucVu);
-            return View(khachHang);
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/KhachHangs/Edit/5
@@ -125,20 +155,25 @@ namespace Restaurant.Areas.Admin.Controllers
         // GET: Admin/KhachHangs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (isExist())
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var khachHang = await _context.KhachHangs
-                .Include(k => k.MaChucVuNavigation)
-                .FirstOrDefaultAsync(m => m.MaKhachHang == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
+                var khachHang = await _context.KhachHangs
+                    .Include(k => k.MaChucVuNavigation)
+                    .FirstOrDefaultAsync(m => m.MaKhachHang == id);
+                if (khachHang == null)
+                {
+                    return NotFound();
+                }
 
-            return View(khachHang);
+                return View(khachHang);
+            }
+            return RedirectToAction("Login", "Home");
+           
         }
 
         // POST: Admin/KhachHangs/Delete/5

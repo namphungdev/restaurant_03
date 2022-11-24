@@ -3,53 +3,175 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    <!-- BASE CSS -->
+    <link href="~/css/vendors.min.css" rel="stylesheet">
+    <link href="~/css/shop.css" rel="stylesheet" />
+   
 }
 
-<h1>Edit</h1>
-
-<h4>HoaDon</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="container-fluid">
+    <h1>Chỉnh sửa đơn hàng</h1>
+    <hr />
+    <div class="row">
         <form asp-action="Edit">
+            @* @{
+            // Since Product isn't a string, it requires a cast.
+            var cthd = ViewData["cthd"];
+        }*@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaHoaDon" />
-            <div class="form-group">
-                <label asp-for="MaKhachHang" class="control-label"></label>
-                <select asp-for="MaKhachHang" class="form-control" asp-items="ViewBag.MaKhachHang"></select>
-                <span asp-validation-for="MaKhachHang" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgayLap" class="control-label"></label>
-                <input asp-for="NgayLap" class="form-control" />
-                <span asp-validation-for="NgayLap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TongTien" class="control-label"></label>
-                <input asp-for="TongTien" class="form-control" />
-                <span asp-validation-for="TongTien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoLuong" class="control-label"></label>
-                <input asp-for="SoLuong" class="form-control" />
-                <span asp-validation-for="SoLuong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="hidden" asp-for="MaKhachHang" />
+            <input type="hidden" asp-for="NgayLap" />
+            <input type="hidden" asp-for="TongTien" />
+            <input type="hidden" asp-for="SoLuong" />
+            <input type="hidden" asp-for="DiaChi" />
+            <input type="hidden" asp-for="Sdt" />
+            <div class="row">
+                <div class="col">
+                    <dl class="row">
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.MaHoaDon)
+                        </dt>
+                        <dd class="col-8">
+                            #@Html.DisplayFor(model => model.MaHoaDon)
+                        </dd>
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.MaKhachHangNavigation.TenKhachHang)
+                        </dt>
+                        <dd class="col-8">
+                            @Html.DisplayFor(model => model.MaKhachHangNavigation.TenKhachHang)
+                        </dd>
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.NgayLap)
+                        </dt>
+                        <dd class="col-8">
+                            @Html.DisplayFor(model => model.NgayLap)
+                        </dd>
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.TongTien)
+                        </dt>
+                        <dd class="col-8">
+                            @{ var tong = Model.TongTien;}
+                            @String.Format("{0:n0}", tong) ₫
+                        </dd>
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.SoLuong)
+                        </dt>
+                        <dd class="col-8">
+                            @Html.DisplayFor(model => model.SoLuong)
+                        </dd>
+                        <dt class="col-4">
+                            @Html.DisplayNameFor(model => model.DiaChi)
+                        </dt>
+                        <dd class="col-8">
+                            @Html.DisplayFor(model => model.DiaChi)
+                        </dd>
+
+                    </dl>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="MaThanhToan" class="control-label"></label>
+                        <select asp-for="MaThanhToan" asp-items="ViewBag.MaThanhToan" class="form-control"></select>
+                        <span asp-validation-for="MaThanhToan" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MaVanChuyen" class="control-label"></label>
+                        <select asp-for="MaVanChuyen" asp-items="ViewBag.MaVanChuyen" class="form-control"></select>
+                        <span asp-validation-for="MaVanChuyen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Cập nhật đơn hàng" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
         </form>
     </div>
+    <div>
+        <a asp-action="Index">Trở về</a>
+    </div>
+    @{
+        var cthd = ViewData["cthd"] as ChiTietHoaDon;
+        <div class="card-body card">
+            <table class="table">
+                <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => cthd.MaSanPhamNavigation.AnhSanPham)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => cthd.MaSanPhamNavigation.TenSanPham)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => cthd.SoLuong)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => cthd.TongTien)
+                            </th>
+
+                        </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ChiTietHoaDons)
+                    {
+                    <tr>
+                        <td>
+                            <div class="thumb_cart">
+                                <img src="~/img/SanPham/@Html.DisplayFor(modelItem => item.MaSanPhamNavigation.AnhSanPham)" class="lazy" alt="Image">
+                            </div>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaSanPhamNavigation.TenSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong) 
+                        </td>
+                        <td>
+                            @(String.Format("{0:n0}", item.TongTien)) ₫
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="box_cart">
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            @if (Model.ChiTietHoaDons != null)
+                            {
+                                int total = 0;
+                                <ul>
+                                    <li>
+                                        <span>Tổng tiền</span>  @foreach (var item in Model.ChiTietHoaDons)
+                                        {
+
+                                            var thanhtien = (item.MaSanPhamNavigation.Tien - (item.MaSanPhamNavigation.Tien * item.MaSanPhamNavigation.GiamGia / 100)) * item.SoLuong;
+                                            total += (int)thanhtien;
+                                        }
+                                        @(String.Format("{0:n0}", total)) ₫
+                                    </li>
+                                    <li>
+                                        <span>Giao hàng</span> @(String.Format("{0:n0}", 35000)) ₫
+                                    </li>
+                                    <li>
+                                        <span>Tổng tiền</span> @(String.Format("{0:n0}", total + 35000)) ₫
+                                    </li>
+                                </ul>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    @*@section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }*@
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

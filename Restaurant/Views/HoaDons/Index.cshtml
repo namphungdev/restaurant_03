@@ -26,7 +26,7 @@
                         <div class="card-body text-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                                  class="rounded-circle img-fluid" style="width: 150px;">
-                            <h5 class="my-3">Thành Nam</h5>                       
+                            <h5 class="my-3">Thành Nam</h5>
                         </div>
                     </div>
                     <div class="card mb-4 mb-lg-0">
@@ -49,9 +49,10 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="card mb-4">
+
                         <div class="card-body">
                             <table class="table">
-                                <thead>
+                                <thead class="dark">
                                     <tr>
                                         <th>
                                             @Html.DisplayNameFor(model => model.MaHoaDon)
@@ -66,14 +67,14 @@
                                             @Html.DisplayNameFor(model => model.SoLuong)
                                         </th>
 
-                                        <th>                                        
+                                        <th>
                                             @Html.DisplayNameFor(model => model.MaThanhToan)
                                         </th>
                                         <th>
                                             @Html.DisplayNameFor(model => model.MaVanChuyen)
                                         </th>
 
-                                       
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,32 +89,50 @@
                                             </td>
                                             <td>
                                                 @{ var tong = item.TongTien;}
-                                                @String.Format("{0:n0}", tong) ₫ 
+                                                @String.Format("{0:n0}", tong) ₫
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SoLuong)
                                             </td>
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.MaThanhToanNavigation.TrangThaiThanhToan)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.MaVanChuyenNavigation.TrangThaiVanChuyen)
-                                            </td>
+                                            @if (item.MaThanhToanNavigation.MaThanhToan == 1)
+                                            {
+                                                <td style="color: red">
+                                                    @Html.DisplayFor(modelItem => item.MaThanhToanNavigation.TrangThaiThanhToan)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color: green">
+                                                    @Html.DisplayFor(modelItem => item.MaThanhToanNavigation.TrangThaiThanhToan)
+                                                </td>
+                                            }
+                                            @if (item.MaVanChuyenNavigation.MaVanChuyen == 1)
+                                            {
+                                                <td style="color: red">
+                                                    @Html.DisplayFor(modelItem => item.MaVanChuyenNavigation.TrangThaiVanChuyen)
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color: green">
+                                                    @Html.DisplayFor(modelItem => item.MaVanChuyenNavigation.TrangThaiVanChuyen)
+                                                </td>
+                                            }
 
-                                            
+
                                         </tr>
                                     }
                                 </tbody>
                             </table>
 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </div>
-    
-</div>
-</div>
-</div>
-</section>
+    </section>
 </main>
 
 

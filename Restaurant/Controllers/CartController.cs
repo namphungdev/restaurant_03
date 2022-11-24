@@ -37,13 +37,39 @@ namespace Restaurant.Controllers
             }
             
         }
-        public async Task<IActionResult> Buy(int id)
+        public async Task<IActionResult> Buy(int id, int soluong)
         {
             var sp = _context.SanPhams.ToList();
             if (SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContext.Session, "cart") == null)
             {
                 List<GioHang> cart = new List<GioHang>();
-                cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = 1 });
+                cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = soluong  });
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            }
+            else
+            {
+                List<GioHang> cart = SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContext.Session, "cart");
+                int index = isExist(id);
+                if (index != -1)
+                {              
+                        cart[index].SoLuong += soluong;
+                    
+                }
+                else
+                {
+                    cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = soluong });
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            }
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> update(int id, int soluong)
+        {
+            var sp = _context.SanPhams.ToList();
+            if (SessionHelper.GetObjectFromJson<List<GioHang>>(HttpContext.Session, "cart") == null)
+            {
+                List<GioHang> cart = new List<GioHang>();
+                cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = soluong });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
@@ -52,11 +78,21 @@ namespace Restaurant.Controllers
                 int index = isExist(id);
                 if (index != -1)
                 {
-                    cart[index].SoLuong++;
+                    if(soluong < 1)
+                    {
+                        cart[index].SoLuong = 1;
+                    }
+                    else
+                    {
+                        cart[index].SoLuong = soluong;
+                    }
+                        
+                  
+
                 }
                 else
                 {
-                    cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = 1 });
+                    cart.Add(new GioHang { SanPham = sp.Find(p => p.MaSanPham == id), SoLuong = soluong });
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }

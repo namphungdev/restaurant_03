@@ -8,6 +8,7 @@ namespace Restaurant.Models
     public class Login
     {
         public KhachHang khachHang { get; set; }
+        public Admin admin { get; set; }
 
     }
 }

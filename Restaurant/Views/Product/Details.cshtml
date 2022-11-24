@@ -71,7 +71,13 @@
 </span><span class="percentage">-@Model.GiamGia%</span> <span class="old_price">@String.Format("{0:n0}", @Model.Tien) ₫ </span></div>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div class="btn_add_to_cart"><a asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.MaSanPham" class="btn_1">Thêm vào giỏ hàng</a></div>
+                            <form asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.MaSanPham">
+                                <button type="submit" style="border: none">
+                                    <input hidden name="soluong" value="1" />
+                                    <div class="btn_add_to_cart"><a class="btn_1">Thêm vào giỏ hàng</a></div>
+                                </button>
+                            </form>
+                           
                         </div>
                     </div>
                 </div>

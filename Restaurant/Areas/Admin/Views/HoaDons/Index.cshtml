@@ -3,16 +3,25 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    
 }
 <div class="container-fluid">
-    <h1>Index</h1>
+    <h1>Quản lý đơn hàng</h1>
+    @* <div class="">
+            <div class="card mb-4">
+                <div class="card-body">
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
+                </div>
+            </div>
+
+        </div>*@
+    <hr />
+    <table id="table_id" class=" display table table-striped " cellpadding="1">
         <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaHoaDon)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.NgayLap)
                 </th>
@@ -26,7 +35,10 @@
                     @Html.DisplayNameFor(model => model.DiaChi)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.MaKhachHangNavigation)
+                    @Html.DisplayNameFor(model => model.MaThanhToan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaVanChuyen)
                 </th>
                 <th></th>
             </tr>
@@ -36,10 +48,14 @@
             {
                 <tr>
                     <td>
+                        <a href="HoaDons/Edit/@Html.DisplayFor(modelItem => item.MaHoaDon)">@Html.DisplayFor(modelItem => item.MaHoaDon)</a>
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.NgayLap)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TongTien)
+                        @{ var tong = item.TongTien;}
+                        @String.Format("{0:n0}", tong) ₫
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.SoLuong)
@@ -47,16 +63,39 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DiaChi)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MaKhachHangNavigation.DiaChi)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.MaHoaDon">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.MaHoaDon">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.MaHoaDon">Delete</a>
-                    </td>
+                    @if (item.MaThanhToanNavigation.MaThanhToan == 1)
+                    {
+                        <td style="color: red">
+                            @Html.DisplayFor(modelItem => item.MaThanhToanNavigation.TrangThaiThanhToan)
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color: green">
+                            @Html.DisplayFor(modelItem => item.MaThanhToanNavigation.TrangThaiThanhToan)
+                        </td>
+                    }
+                    @if (item.MaVanChuyenNavigation.MaVanChuyen == 1)
+                    {
+                        <td style="color: red">
+                            @Html.DisplayFor(modelItem => item.MaVanChuyenNavigation.TrangThaiVanChuyen)
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color: green">
+                            @Html.DisplayFor(modelItem => item.MaVanChuyenNavigation.TrangThaiVanChuyen)
+                        </td>
+                    }
+
+                <td>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.MaHoaDon">Edit</a>
+                    <a class="btn btn-success" asp-action="Details" asp-route-id="@item.MaHoaDon">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MaHoaDon">Delete</a>                  
+                </td>
                 </tr>
             }
         </tbody>
     </table>
-    </div>
+</div>
+

@@ -16,17 +16,22 @@ namespace Restaurant.Models
         }
 
         public int MaKhachHang { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Tên khách hàng không được để trống!")]
         [DisplayName("Tên khách hàng")]
         public string TenKhachHang { get; set; }
         [StringLength(10)]
-        [Required]
+        [Required(ErrorMessage = "Số điện thoại không được để trống!")]
+        [DisplayName("Số điện thoại")]
+        [Phone(ErrorMessage = "Số điện thoại chưa đúng định dạng!")]
         public string Sdt { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email không được để trống!")]
+        [RegularExpression(@"\b[A-Za-z0-9._%-]+@+[A-Za-z0-9._%-]+(.com)\b", ErrorMessage = ("Email phải đúng định dạng @gmail.com"))]
+        [EmailAddress(ErrorMessage = "Email chưa đúng định dạng!")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password không được để trống!")]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Địa chỉ không được để trống!")]
+        [DisplayName("Địa chỉ")]
         public string DiaChi { get; set; }
         public int? MaChucVu { get; set; }
 

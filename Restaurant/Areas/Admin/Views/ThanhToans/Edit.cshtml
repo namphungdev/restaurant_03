@@ -1,21 +1,21 @@
-﻿@model Restaurant.Models.LoaiSanPham
+﻿@model Restaurant.Models.ThanhToan
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container-fluid">
-    <h1>Chỉnh sửa loại sản phẩm </h1>
+    <h1>Edit</h1>
     <hr />
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="MaLoaiSanPham" />
+                <input type="hidden" asp-for="MaThanhToan" />
                 <div class="form-group">
-                    <label asp-for="TenLoaiSanPham" class="control-label"></label>
-                    <input asp-for="TenLoaiSanPham" class="form-control" />
-                    <span asp-validation-for="TenLoaiSanPham" class="text-danger"></span>
+                    <label asp-for="TrangThaiThanhToan" class="control-label"></label>
+                    <input asp-for="TrangThaiThanhToan" class="form-control" />
+                    <span asp-validation-for="TrangThaiThanhToan" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
@@ -27,6 +27,7 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
+
+
 </div>
     
-
