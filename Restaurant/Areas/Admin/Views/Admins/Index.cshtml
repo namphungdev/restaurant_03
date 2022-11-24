@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Restaurant.Models.Admin>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1>Quản lý admin</h1>
+    <hr />
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+
+    <table id="table_id" class=" display table table-striped " cellpadding="1">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaTk)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tk)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mk)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaTk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mk)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.MaTk">Edit</a>
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.MaTk">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MaTk">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+    
